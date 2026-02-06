@@ -1,0 +1,323 @@
+# GestALT - System Overview Diagram
+
+```
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                           GestALT ARCHITECTURE                                 ║
+║                    Perception-Driven Learning Platform                         ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+┌───────────────────────────────────────────────────────────────────────────────┐
+│                          PRESENTATION LAYER                                    │
+├───────────────────────────────────────────────────────────────────────────────┤
+│                                                                                │
+│  ┌─────────────┐  ┌──────────────┐  ┌────────────────┐  ┌─────────────────┐ │
+│  │  index.html │  │  ideas.html  │  │ architecture   │  │   styles/       │ │
+│  │             │  │              │  │      .html     │  │   main.css      │ │
+│  │  Learning   │  │  Philosophy  │  │                │  │   ideas.css     │ │
+│  │  Interface  │  │  & Rationale │  │  Tech Docs     │  │                 │ │
+│  └─────────────┘  └──────────────┘  └────────────────┘  └─────────────────┘ │
+│                                                                                │
+└────────────────────────────────────┬──────────────────────────────────────────┘
+                                     │
+                                     ▼
+┌───────────────────────────────────────────────────────────────────────────────┐
+│                          APPLICATION LAYER                                     │
+│                              js/main.js                                        │
+├───────────────────────────────────────────────────────────────────────────────┤
+│                                                                                │
+│  ┌─────────────────────────────────────────────────────────────────────────┐ │
+│  │  GestALTApp                                                             │ │
+│  │  ├─ Initialize systems                                                  │ │
+│  │  ├─ Handle user interactions                                            │ │
+│  │  ├─ Coordinate component updates                                        │ │
+│  │  ├─ Display evaluation results                                          │ │
+│  │  └─ Manage view transitions                                             │ │
+│  └─────────────────────────────────────────────────────────────────────────┘ │
+│                                                                                │
+└─────┬──────────────────┬─────────────────────┬──────────────────┬─────────────┘
+      │                  │                     │                  │
+      ▼                  ▼                     ▼                  ▼
+┌──────────┐  ┌─────────────────┐  ┌──────────────────┐  ┌───────────────┐
+│ UI Layer │  │ Systems Layer   │  │ Engine Layer     │  │ Models Layer  │
+└──────────┘  └─────────────────┘  └──────────────────┘  └───────────────┘
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                             UI LAYER (js/ui/)                                  ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+┌───────────────────────────────────────────────────────────────────────────────┐
+│  ChallengeRenderer.js                                                          │
+│  ┌─────────────────────────────────────────────────────────────────────────┐  │
+│  │  render(components, onUpdate)                                           │  │
+│  │  ├─ renderCanvas() - Visual component display                           │  │
+│  │  ├─ renderControls() - Property editors (sliders, colors, etc.)         │  │
+│  │  └─ setupControlListeners() - Handle user modifications                 │  │
+│  └─────────────────────────────────────────────────────────────────────────┘  │
+└───────────────────────────────────────────────────────────────────────────────┘
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                         SYSTEMS LAYER (js/systems/)                            ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+┌───────────────────────────────────────────────────────────────────────────────┐
+│  LearningSystem.js - Adaptive Intelligence                                     │
+│  ┌─────────────────────────────────────────────────────────────────────────┐  │
+│  │  selectNextChallenge(challenges)                                        │  │
+│  │  ├─ Identify weakest skill domain                                       │  │
+│  │  ├─ 70% reinforcement / 30% variety                                     │  │
+│  │  ├─ Match difficulty to skill level                                     │  │
+│  │  └─ Return optimal next challenge                                       │  │
+│  │                                                                          │  │
+│  │  recordDecision(challengeId, componentId, property, oldVal, newVal)     │  │
+│  │  └─ Track all user modifications for pattern analysis                   │  │
+│  │                                                                          │  │
+│  │  completeChallenge(challenge, performance)                              │  │
+│  │  ├─ Calculate skill delta based on score, time, hints                   │  │
+│  │  ├─ Update user skill profile                                           │  │
+│  │  └─ Persist to localStorage                                             │  │
+│  └─────────────────────────────────────────────────────────────────────────┘  │
+└───────────────────────────────────────────────────────────────────────────────┘
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                       ENGINE LAYER (js/engine/)                                ║
+║                      THE CORE DIFFERENTIATOR                                   ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+┌───────────────────────────────────────────────────────────────────────────────┐
+│  PerceptionEngine.js - Simulation Core                                         │
+│  ┌─────────────────────────────────────────────────────────────────────────┐  │
+│  │  analyze(components) → PerceptionMetrics                                │  │
+│  │                                                                          │  │
+│  │  ┌────────────────────────────────────────────────────────────────────┐ │  │
+│  │  │  calculateAttentionMap()                                           │ │  │
+│  │  │  ├─ Visual weight = size + contrast + position × semantic         │ │  │
+│  │  │  ├─ F-pattern bias (top-left favored)                             │ │  │
+│  │  │  ├─ Isolation factor (whitespace bonus)                           │ │  │
+│  │  │  └─ Normalize to probability distribution                         │ │  │
+│  │  └────────────────────────────────────────────────────────────────────┘ │  │
+│  │                                                                          │  │
+│  │  ┌────────────────────────────────────────────────────────────────────┐ │  │
+│  │  │  calculateHierarchyStrength()                                      │ │  │
+│  │  │  ├─ Measure variance in visual weights                            │ │  │
+│  │  │  └─ Higher variance = clearer hierarchy                           │ │  │
+│  │  └────────────────────────────────────────────────────────────────────┘ │  │
+│  │                                                                          │  │
+│  │  ┌────────────────────────────────────────────────────────────────────┐ │  │
+│  │  │  calculateCognitiveLoad()                                          │ │  │
+│  │  │  ├─ Element count factor                                          │ │  │
+│  │  │  ├─ Color variety penalty                                         │ │  │
+│  │  │  └─ Size inconsistency penalty                                    │ │  │
+│  │  └────────────────────────────────────────────────────────────────────┘ │  │
+│  │                                                                          │  │
+│  │  ┌────────────────────────────────────────────────────────────────────┐ │  │
+│  │  │  evaluateContrast() - WCAG 2.1 Compliance                          │ │  │
+│  │  │  ├─ Calculate relative luminance                                  │ │  │
+│  │  │  ├─ Compute contrast ratio                                        │ │  │
+│  │  │  └─ Validate against thresholds (4.5:1 or 3:1)                   │ │  │
+│  │  └────────────────────────────────────────────────────────────────────┘ │  │
+│  │                                                                          │  │
+│  │  ┌────────────────────────────────────────────────────────────────────┐ │  │
+│  │  │  evaluateHitTargets() - Touch Accessibility                        │ │  │
+│  │  │  └─ Enforce 44×44px minimum for interactive elements             │ │  │
+│  │  └────────────────────────────────────────────────────────────────────┘ │  │
+│  └─────────────────────────────────────────────────────────────────────────┘  │
+└───────────────────────────────────────────────────────────────────────────────┘
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                         MODELS LAYER (js/models/)                              ║
+║                         Domain-Driven Design                                   ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+┌──────────────────┐      ┌──────────────────┐      ┌──────────────────┐
+│  User.js         │      │  Challenge.js    │      │  UIComponent.js  │
+├──────────────────┤      ├──────────────────┤      ├──────────────────┤
+│ skillProfile {}  │      │ domain           │      │ type             │
+│ decisionHistory[]│      │ difficulty (1-10)│      │ properties {}    │
+│ completedChal[]  │◄────►│ components []    │◄────►│ ├─ size          │
+│ currentStreak    │      │ successCriteria[]│      │ ├─ position      │
+│ hintUsage {}     │      │                  │      │ ├─ typography    │
+│                  │      │ evaluate() →     │      │ └─ colors        │
+│ updateSkill()    │      │   Outcome        │      │                  │
+│ recordDecision() │      │                  │      │ getVisualWeight()│
+│ serialize()      │      │ checkSuccess()   │      │ getContrast()    │
+└──────────────────┘      └──────────────────┘      │ render()         │
+                                                     └──────────────────┘
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                          DATA LAYER (js/data/)                                 ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+┌───────────────────────────────────────────────────────────────────────────────┐
+│  ChallengeLibrary.js                                                           │
+│  ┌─────────────────────────────────────────────────────────────────────────┐  │
+│  │  hierarchy_1: "First Attention" (difficulty 2)                          │  │
+│  │  hierarchy_2: "Visual Weight" (difficulty 4)                            │  │
+│  │  accessibility_1: "Contrast Crisis" (difficulty 3)                      │  │
+│  │  accessibility_2: "Touch Target Test" (difficulty 2)                    │  │
+│  │  spacing_1: "Rhythm & Consistency" (difficulty 5)                       │  │
+│  └─────────────────────────────────────────────────────────────────────────┘  │
+└───────────────────────────────────────────────────────────────────────────────┘
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                         PERSISTENCE LAYER                                      ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+┌───────────────────────────────────────────────────────────────────────────────┐
+│  Browser localStorage                                                          │
+│  ┌─────────────────────────────────────────────────────────────────────────┐  │
+│  │  Key: "gestalt_user_profile"                                            │  │
+│  │  Value: {                                                                │  │
+│  │    id: "user_1234567890",                                                │  │
+│  │    skillProfile: {hierarchy: 45, accessibility: 30, ...},                │  │
+│  │    decisionHistory: [...],                                               │  │
+│  │    completedChallenges: [...]                                            │  │
+│  │  }                                                                        │  │
+│  └─────────────────────────────────────────────────────────────────────────┘  │
+└───────────────────────────────────────────────────────────────────────────────┘
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                         EVALUATION FLOW                                        ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+1. User modifies component property (e.g., button width)
+   ↓
+2. ChallengeRenderer.onComponentUpdate() triggered
+   ↓
+3. LearningSystem.recordDecision() - Track the change
+   ↓
+4. UI re-renders with new component state
+   ↓
+5. User clicks "Evaluate Design"
+   ↓
+6. PerceptionEngine.analyze(components) calculates:
+   ├─ Attention map (who sees what first)
+   ├─ Hierarchy strength (clarity of importance)
+   ├─ Cognitive load (mental effort)
+   ├─ Accessibility metrics (WCAG compliance)
+   └─ Returns PerceptionMetric object
+   ↓
+7. Challenge.evaluate(components, engine) processes:
+   ├─ Get metrics from engine
+   ├─ Calculate domain-specific score
+   ├─ Check success criteria (e.g., hierarchyStrength > 0.6)
+   ├─ Generate explanations (which rules fired and why)
+   └─ Returns Outcome object
+   ↓
+8. GestALTApp.displayMetrics() shows:
+   ├─ Metric values with visual indicators
+   ├─ Explainability cards (issue, reason, suggestion)
+   └─ Accessibility report (if applicable)
+   ↓
+9. If challenge passed:
+   ├─ LearningSystem.completeChallenge()
+   ├─ Update user skill profile (+5 to +10 points)
+   ├─ Save to localStorage
+   └─ Select next adaptive challenge
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                    KEY ENGINEERING DIFFERENTIATORS                             ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+1. PERCEPTION AS SIMULATION
+   Not "does this look good?" but "where does attention flow and why?"
+   
+2. DETERMINISTIC EVALUATION
+   Same input always produces same output - traceable, explainable
+   
+3. ADAPTIVE INTELLIGENCE
+   System learns user weaknesses and adapts challenge selection
+   
+4. ACCESSIBILITY AS CONSTRAINT
+   Real-time validation, not optional checklist
+   
+5. EXPLAINABILITY FIRST
+   Every metric shows calculation, every failure shows reason
+   
+6. CLEAN DOMAIN MODELING
+   Explicit entities with clear responsibilities and relationships
+   
+7. STANDARDS COMPLIANCE
+   Implements actual WCAG 2.1 formulas, not approximations
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                           FILE STRUCTURE                                       ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+GestALT/
+├── index.html                    # Main learning interface
+├── ideas.html                    # Philosophy page (heart & soul)
+├── architecture.html             # Technical deep dive
+├── README.md                     # Project overview
+├── QUICK_START.md               # Getting started guide
+├── TECHNICAL_DEEP_DIVE.md       # Engineering analysis
+├── package.json                 # Project metadata
+│
+├── styles/
+│   ├── main.css                 # Core design system
+│   └── ideas.css                # Philosophy page styles
+│
+└── js/
+    ├── main.js                  # Application entry point
+    │
+    ├── models/                  # Domain entities
+    │   ├── User.js             # Skill profiles & history
+    │   ├── Challenge.js        # Evaluation logic
+    │   └── UIComponent.js      # Properties & calculations
+    │
+    ├── engine/                  # Core algorithms
+    │   └── PerceptionEngine.js # Simulation & metrics
+    │
+    ├── systems/                 # Business logic
+    │   └── LearningSystem.js   # Adaptive selection
+    │
+    ├── ui/                      # Presentation
+    │   └── ChallengeRenderer.js # Interactive components
+    │
+    └── data/                    # Configuration
+        └── ChallengeLibrary.js  # Predefined challenges
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                         DESIGN SYSTEM                                          ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+TYPOGRAPHY HIERARCHY
+├── Merienda (Calligraphic)
+│   └── Usage: Hero titles, section headings, brand personality
+│       Rationale: Warm, human, reduces intimidation
+│
+├── Work Sans (Sans-serif)
+│   └── Usage: Body text, UI labels, descriptions
+│       Rationale: Neutral, readable, cognitive clarity
+│
+└── JetBrains Mono (Monospace)
+    └── Usage: Metrics, code snippets, formulas
+        Rationale: Engineering precision, systems thinking
+
+COLOR PALETTE - Calm Perceptual Focus
+├── Deep Charcoal (#121417)  → Primary text
+├── Soft Paper (#F4F2EE)     → Background
+├── Muted Indigo (#4F5D75)   → Primary actions, accents
+└── Warm Sand (#D6CFC4)      → Borders, subtle elements
+
+RATIONALE: Reduces cognitive load, encourages sustained attention,
+           demonstrates the design principles being taught
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                              IMPACT                                            ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+WHAT THIS PROJECT DEMONSTRATES:
+
+✓ Algorithm Design        - Perception simulation with real math
+✓ Data Modeling          - Clean domain entities with clear relationships
+✓ State Management       - User profiles, decision history, persistence
+✓ Adaptive Systems       - Machine learning principles (without ML)
+✓ Standards Compliance   - Actual WCAG 2.1 implementation
+✓ Explainable AI         - Every output justified with reasoning
+✓ Software Architecture  - Separation of concerns, modular design
+✓ Product Thinking       - User-centered, pedagogically sound
+✓ Engineering Maturity   - Documented, justified, intentional
+
+NOT JUST A UI PROJECT - A SYSTEMS ENGINEERING DEMONSTRATION
+
+```

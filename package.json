@@ -1,0 +1,27 @@
+{
+  "name": "gestalt-learning-platform",
+  "version": "1.0.0",
+  "description": "Perception-driven UI/UX learning through simulation and interaction",
+  "type": "module",
+  "scripts": {
+    "start": "npx http-server -p 8080 -o",
+    "dev": "npx live-server --port=8080 --open=/index.html"
+  },
+  "keywords": [
+    "perception",
+    "ui-ux",
+    "learning-platform",
+    "accessibility",
+    "visual-design",
+    "simulation",
+    "adaptive-learning"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/gestalt"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GestALT - System Architecture</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&family=Work+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        .architecture-page {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+        }
+        .code-block {
+            background: #f5f5f5;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .metric-formula {
+            background: linear-gradient(135deg, #f0f4f8 0%, #ffffff 100%);
+            padding: 1.5rem;
+            border-left: 4px solid var(--color-info);
+            margin: 1rem 0;
+            font-family: var(--font-mono);
+        }
+    </style>
+</head>
+<body class="architecture-page">
+    <h1 style="font-family: var(--font-heading); font-size: 3rem; text-align: center; margin-bottom: 3rem;">
+        GestALT System Architecture
+    </h1>
+
+    <div class="section">
+        <h2>1. Perception Simulation Engine - Core Algorithm</h2>
+        <p>The perception engine is the technical differentiator. It models user attention using measurable visual properties.</p>
+        
+        <h3>Visual Weight Calculation</h3>
+        <div class="metric-formula">
+            visualWeight = (sizeWeight + contrastWeight + positionWeight) × semanticMultiplier
+            <br><br>
+            where:<br>
+            • sizeWeight = (width × height) / 10000<br>
+            • contrastWeight = contrastRatio / 21  // WCAG max<br>
+            • positionWeight = (1 - y/1000) × 0.3  // F-pattern bias<br>
+            • semanticMultiplier = {primary: 1.5, secondary: 1.0, normal: 0.7}
+        </div>
+
+        <h3>Attention Probability Distribution</h3>
+        <div class="metric-formula">
+            P(attention | component) = (visualWeight × positionFactor × isolationFactor) / Σ(all components)
+            <br><br>
+            positionFactor = (xFactor × 0.4) + (yFactor × 0.6)<br>
+            xFactor = max(0, 1 - x/800)  // Left bias<br>
+            yFactor = max(0, 1 - y/600)  // Top bias<br>
+            <br>
+            isolationFactor = max(0.3, 1 - (nearbyCount × 0.1))
+        </div>
+
+        <h3>Hierarchy Strength</h3>
+        <div class="metric-formula">
+            hierarchyStrength = variance(visualWeights) / 2
+            <br><br>
+            Higher variance = clearer hierarchy<br>
+            Normalized to [0, 1]
+        </div>
+
+        <h3>Cognitive Load</h3>
+        <div class="metric-formula">
+            cognitiveLoad = (countLoad × 0.4) + (colorLoad × 0.3) + (sizeLoad × 0.3)
+            <br><br>
+            countLoad = min(1, elementCount / 15)<br>
+            colorLoad = min(1, uniqueColors / 8)<br>
+            sizeLoad = min(1, uniqueSizes / 5)
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>2. Accessibility Constraint Engine</h2>
+        
+        <h3>Contrast Calculation (WCAG 2.1)</h3>
+        <div class="metric-formula">
+            relativeLuminance(color) = 0.2126×R + 0.7152×G + 0.0722×B
+            <br>
+            where RGB = {<br>
+            &nbsp;&nbsp;val/255 ≤ 0.03928 ? val/12.92 : ((val+0.055)/1.055)^2.4<br>
+            }
+            <br><br>
+            contrastRatio = (lighter + 0.05) / (darker + 0.05)
+            <br><br>
+            Required:<br>
+            • Normal text: 4.5:1 (AA)<br>
+            • Large text (18pt+ or 14pt bold): 3:1 (AA)
+        </div>
+
+        <h3>Hit Target Validation</h3>
+        <div class="metric-formula">
+            For all interactive elements (button, input):<br>
+            • Minimum width: 44px<br>
+            • Minimum height: 44px<br>
+            <br>
+            Compliance = (compliant elements) / (total interactive elements)
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>3. Adaptive Learning Algorithm</h2>
+        
+        <h3>Challenge Selection Strategy</h3>
+        <div class="code-block">
+// 1. Identify weakest skill domain
+weakestSkill = argmin(userSkillProfile)
+
+// 2. Priority-based filtering
+priorityChallenges = challenges.filter(c => c.domain === weakestSkill)
+otherChallenges = challenges.filter(c => c.domain !== weakestSkill)
+
+// 3. Probabilistic selection (70/30 split)
+pool = random() < 0.7 ? priorityChallenges : otherChallenges
+
+// 4. Difficulty matching
+skillLevel = userSkillProfile[weakestSkill]
+targetDifficulty = ceil((skillLevel / 100) × 10)
+
+// 5. Select closest match
+selectedChallenge = argmin(|challenge.difficulty - targetDifficulty|)
+        </div>
+
+        <h3>Skill Update Formula</h3>
+        <div class="metric-formula">
+            skillDelta = baseScore + timeBonus - hintPenalty
+            <br><br>
+            baseScore = {<br>
+            &nbsp;&nbsp;score ≥ 90: +10<br>
+            &nbsp;&nbsp;score ≥ 70: +5<br>
+            &nbsp;&nbsp;score ≥ 50: +2<br>
+            &nbsp;&nbsp;score < 50: -3<br>
+            }<br>
+            <br>
+            timeBonus = timeSpent < estimatedTime ? +5 : 0<br>
+            hintPenalty = hintsUsed × -2
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>4. Domain Model Architecture</h2>
+        
+        <h3>Core Entities & Relationships</h3>
+        <div class="code-block">
+User
+├─ skillProfile: {hierarchy, accessibility, forms, spacing}
+├─ decisionHistory: Decision[]
+├─ completedChallenges: {id, timestamp, performance}[]
+├─ currentStreak: number
+└─ hintUsage: {total, byChallenge}
+
+Challenge
+├─ domain: string
+├─ difficulty: 1-10
+├─ components: UIComponent[]
+├─ successCriteria: [metric, operator, threshold][]
+└─ evaluate(components, engine): Outcome
+
+UIComponent
+├─ type: 'button' | 'heading' | 'text' | 'input'
+├─ properties: {
+│   x, y, width, height,
+│   fontSize, fontWeight, color, backgroundColor,
+│   padding, margin, borderRadius,
+│   semanticRole, zIndex
+│ }
+├─ getVisualWeight(): number
+├─ getContrast(): number
+└─ render(): object
+
+PerceptionMetric
+├─ attentionMap: {componentId, probability}[]
+├─ hierarchyStrength: 0-1
+├─ cognitiveLoad: 0-1
+├─ errorLikelihood: 0-1
+├─ contrastCompliance: 0-1
+├─ hitTargetCompliance: 0-1
+└─ keyboardNavigable: boolean
+
+Decision
+├─ challengeId: string
+├─ componentId: string
+├─ property: string
+├─ oldValue: any
+├─ newValue: any
+└─ timestamp: number
+
+Outcome
+├─ passed: boolean
+├─ score: 0-100
+├─ metrics: PerceptionMetric
+└─ explanation: {issue, reason, suggestion}[]
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>5. Data Flow Architecture</h2>
+        
+        <h3>Challenge Evaluation Pipeline</h3>
+        <div class="code-block">
+1. User modifies UIComponent property
+   ↓
+2. Decision recorded to LearningSystem
+   ↓
+3. ChallengeRenderer updates canvas
+   ↓
+4. User clicks "Evaluate Design"
+   ↓
+5. PerceptionEngine.analyze(components)
+   ├─ Calculate attention map
+   ├─ Compute hierarchy strength
+   ├─ Measure cognitive load
+   ├─ Validate accessibility
+   └─ Return PerceptionMetric
+   ↓
+6. Challenge.evaluate(components, engine)
+   ├─ Get metrics from engine
+   ├─ Calculate domain-specific score
+   ├─ Check success criteria
+   └─ Generate explanations
+   ↓
+7. Display results with explainability
+   ↓
+8. If passed:
+   ├─ Update user skill profile
+   ├─ Save to localStorage
+   └─ Select next adaptive challenge
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>6. State Management Strategy</h2>
+        
+        <h3>Persistence Layer</h3>
+        <div class="code-block">
+// LocalStorage schema
+gestalt_user_profile = {
+  id: string,
+  skillProfile: object,
+  decisionHistory: array,
+  completedChallenges: array,
+  currentStreak: number,
+  totalTime: number,
+  hintUsage: object
+}
+
+// Serialization
+User.serialize() → JSON.stringify()
+User.deserialize(data) → Object reconstruction
+
+// Auto-save triggers
+• After each decision
+• After challenge completion
+• After skill update
+        </div>
+
+        <h3>Session State</h3>
+        <div class="code-block">
+// In-memory (non-persistent)
+currentChallenge: Challenge
+currentComponents: UIComponent[]
+challengeStartTime: timestamp
+hintsUsed: number
+nextChallenge: Challenge (pre-selected for smooth UX)
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>7. Engineering Decisions & Tradeoffs</h2>
+        
+        <h3>Why Pure Frontend?</h3>
+        <p>• <strong>Zero deployment friction</strong> - Works immediately via file:// or any static host<br>
+        • <strong>No backend dependency</strong> - Reduces complexity for portfolio demonstration<br>
+        • <strong>Client-side ML simulation</strong> - Shows algorithmic thinking without server<br>
+        • <strong>localStorage = sufficient</strong> - Single-user learning profile doesn't need DB</p>
+
+        <h3>Why ES6 Modules?</h3>
+        <p>• <strong>Clean separation of concerns</strong> - Each domain entity is isolated<br>
+        • <strong>Testability</strong> - Pure functions can be unit tested<br>
+        • <strong>Scalability</strong> - Easy to add new challenge types or metrics<br>
+        • <strong>Modern standards</strong> - Demonstrates current best practices</p>
+
+        <h3>Why Deterministic Over ML?</h3>
+        <p>• <strong>Explainability</strong> - Every output is traceable to a rule<br>
+        • <strong>Predictability</strong> - Same input always produces same result<br>
+        • <strong>Educational value</strong> - Users learn the actual rules, not black-box patterns<br>
+        • <strong>No training data needed</strong> - Rules based on research (WCAG, F-pattern, Gestalt principles)</p>
+
+        <h3>Typography & Color Rationale</h3>
+        <p>• <strong>Merienda (calligraphy)</strong> - Reduces intimidation, signals human warmth<br>
+        • <strong>Work Sans (sans-serif)</strong> - Maximizes readability for sustained attention<br>
+        • <strong>JetBrains Mono</strong> - Reinforces engineering/systems nature<br>
+        • <strong>Calm Perceptual Focus palette</strong> - Low cognitive load, demonstrates taught principles</p>
+    </div>
+
+    <div class="section">
+        <h2>8. Future Architecture Considerations</h2>
+        
+        <h3>Backend Integration Points (If Scaled)</h3>
+        <div class="code-block">
+Potential API endpoints:
+• POST /api/challenges/evaluate - Server-side validation
+• GET /api/users/{id}/analytics - Cross-device sync
+• POST /api/decisions - Aggregate learning patterns
+• GET /api/challenges/community - User-generated content
+• WebSocket /perception-stream - Real-time collaboration
+
+Database schema (PostgreSQL):
+• users (id, created_at, settings)
+• skill_profiles (user_id, domain, level, updated_at)
+• challenges (id, type, difficulty, config_json)
+• decisions (user_id, challenge_id, timestamp, delta)
+• outcomes (challenge_id, user_id, score, metrics_json)
+        </div>
+
+        <h3>Performance Optimizations</h3>
+        <div class="code-block">
+• Debounce property updates during rapid slider changes
+• Web Workers for heavy perception calculations
+• Canvas rendering for large component sets
+• IndexedDB for richer offline storage
+• Service Worker for offline-first PWA
+        </div>
+
+        <h3>Advanced Features</h3>
+        <div class="code-block">
+• Heatmap visualization (canvas overlay)
+• Eye-tracking integration (if available)
+• A/B testing of design variations
+• Collaborative challenges (multiplayer)
+• Design system builder (export tokens)
+• Accessibility audit reports (PDF export)
+        </div>
+    </div>
+
+    <footer style="text-align: center; padding: 3rem 0; color: var(--color-text-muted);">
+        <p>GestALT - Where Perception Meets Engineering</p>
+        <a href="index.html" style="color: var(--color-primary);">← Back to Learning Platform</a>
+    </footer>
+</body>
+</html>
