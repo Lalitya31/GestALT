@@ -100,3 +100,24 @@ As a project, GestALT demonstrates:
 - adaptive learning logic
 - explainable decision systems
 It is intended to function not only as a learning platform, but also as a serious software engineering portfolio project, showcasing depth beyond surface-level UI design.
+
+## Typography & Color Rationale
+
+GestALT treats visual design as a functional part of the learning system, not decoration. Typography and color choices are intentionally restrained to support perception-driven, practical learning while minimizing cognitive load.
+
+### Typography
+Merienda is used for headings and key instructional moments to introduce a human, perceptual quality into the interface. Its calligraphic form slows reading slightly and encourages reflection, aligning with GestALT’s emphasis on learning through observation rather than memorization.
+
+Work Sans is used for body text and UI elements due to its neutrality and high legibility. It recedes into the background, allowing users to focus on interaction and decision-making rather than typography itself.
+
+JetBrains Mono is used sparingly for metrics and system feedback to signal precision, structure, and evaluation.
+
+### Color System
+The interface uses a deep charcoal and soft off-white base to reduce eye strain and maintain visual calm during extended learning sessions.
+
+Muted indigo is used for focus and active states, guiding attention without urgency, while warm sand tones add subtle contrast and maintain approachability.
+
+Color is used primarily for feedback and state changes, not decoration, ensuring that visual emphasis always carries meaning.
+
+#### Learning Impact
+Together, the typography and color system creates a calm, cognitively safe environment that encourages experimentation, iteration, and sustained focus—supporting GestALT’s goal of being an alternative to theory-first UI/UX education.
