@@ -119,5 +119,5 @@ Muted indigo is used for focus and active states, guiding attention without urge
 
 Color is used primarily for feedback and state changes, not decoration, ensuring that visual emphasis always carries meaning.
 
-#### Learning Impact
+### Learning Impact
 Together, the typography and color system creates a calm, cognitively safe environment that encourages experimentation, iteration, and sustained focus—supporting GestALT’s goal of being an alternative to theory-first UI/UX education.
