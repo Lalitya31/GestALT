@@ -1,11 +1,102 @@
 # GestALT
 An alternative where design is seen, not read.
-GestALT is an **alternative**, perception-driven learning platform designed to address a **fundamental problem in UI/UX education**: most beginners are taught design through **theory-heavy documentation** and static explanations, even though UI/UX is inherently visual, experiential, and interactive. The project’s core intention is to replace passive learning with a system where users learn by observing, manipulating, and experiencing the consequences of design decisions.
-At its heart, GestALT is a **game-based learning system**, but not in a superficial sense. It is built around the idea that design understanding emerges from interaction with constraints and feedback, not from memorization. Users are presented with intentionally flawed or incomplete interfaces and asked to modify them. Instead of being told principles upfront, users make decisions first and only then see the outcomes of those decisions through visual simulations and measurable metrics.
-The central technical pillar of GestALT is a perception simulation engine. This engine models how users are likely to perceive an interface based on measurable properties such as element size, contrast, spacing, alignment, and placement. Each UI component is represented as structured data rather than static visuals. When a learner modifies an interface, the engine recalculates attention flow, visual hierarchy strength, and cognitive load. This transforms learning feedback from subjective opinion into deterministic, explainable outcomes.
-GestALT is designed as a stateful system rather than a sequence of independent lessons. The platform maintains a learning profile for each user, tracking their decisions, recurring mistakes, time taken to respond, and reliance on hints. Based on this profile, the system adapts future challenges by increasing difficulty in areas of strength and reinforcing weak concepts. This adaptive behavior demonstrates not just frontend sophistication but also thoughtful state management and data modeling.
-From a software engineering perspective, the project emphasizes clean domain modeling and separation of concerns. Concepts such as users, challenges, UI components, perception metrics, decisions, and outcomes are explicitly represented and connected. This allows the system to scale in complexity without becoming fragile. The frontend is not merely rendering screens but acting as a visualization layer over a structured decision system.
-Explainability is a key design goal. For every evaluation the system makes, GestALT exposes the reasoning behind it. Learners can see which visual principles were violated, which rules triggered penalties, and how small changes altered perception metrics. This transparency mirrors real-world engineering systems where understanding system behavior is as important as the output itself.
-Accessibility is treated as a first-class constraint rather than an optional add-on. GestALT enforces accessibility rules such as color contrast ratios, hit target sizes, and keyboard navigation paths. In advanced challenges, learners must balance aesthetic goals against accessibility requirements, reflecting real product tradeoffs faced by engineers and designers.
-Beyond learning, GestALT functions as a demonstrable engineering artifact. It integrates structured data, rule-based evaluation, adaptive logic, and visual feedback into a cohesive system. The project shows an understanding of system design, not just interface design. It communicates that the creator can reason about user behavior, translate abstract principles into code, and build systems that explain themselves.
-Ultimately, GestALT is an alternative to theory-first design education because it treats perception as something to be simulated, tested, and refined through interaction. It positions learning as an active process and design as a system of decisions with consequences. As a project, it demonstrates not only design sensitivity but also engineering depth, making it suitable as a serious software engineering portfolio piece rather than a purely UI-focused showcase.
+GestALT is an alternative, perception-driven learning platform for UI/UX education. It addresses a fundamental limitation in how design is commonly taught: beginners are often introduced to UI/UX through theory-heavy documentation and static explanations, even though design itself is inherently visual, experiential, and interactive.
+
+GestALT replaces passive, theory-first learning with an interactive system where users learn by observing, manipulating, and experiencing the consequences of design decisions.
+
+## Motivation
+
+Traditional UI/UX learning relies heavily on:
+1. written theory
+2. design laws explained in isolation
+3. examples without interaction
+   
+This approach often overwhelms beginners and fails to reflect how design decisions are actually made in practice. GestALT exists as an alternative—one that treats perception as the primary learning medium and interaction as the primary teacher.
+
+## Core Concept
+
+At its core, GestALT is a game-based learning system, but not in a superficial or gamified sense. The platform is built on the idea that meaningful design understanding emerges from working within constraints and responding to feedback, rather than memorizing principles.
+Users are presented with intentionally flawed or incomplete interfaces and asked to improve them. Instead of being taught rules upfront, users:
+
+= make design decisions first
+
+= observe the outcomes of those decisions
+
+= reflect on why those outcomes occurred
+
+Learning happens through cause and effect, not instruction alone.
+
+### Perception Simulation Engine
+
+The central technical component of GestALT is a perception simulation engine.Rather than evaluating designs subjectively, the system models how users are likely to perceive an interface based on measurable properties, including:
++ element size
+
++ visual contrast
+
++ spacing and alignment
+
++ placement and hierarchy
+
+Each UI element is represented as structured data rather than static visuals. When a learner modifies an interface, the engine recalculates metrics such as:
+
+- attention flow
+
+- visual hierarchy strength
+
+- cognitive load
+
+This transforms feedback from opinion-based critique into deterministic, explainable evaluation.
+
+### Stateful Learning & Adaptation
+
+GestALT is designed as a stateful system, not a collection of isolated lessons.
+For each user, the platform maintains a learning profile that tracks:
+> design decisions made
+> recurring mistakes
+> time taken to respond
+> reliance on hints or guidance
+
+Using this data, the system adapts future challenges by:
+- increasing difficulty in areas of demonstrated strength
+- reinforcing concepts where users struggle
+- adjusting feedback depth and verbosity
+- This adaptive behavior reflects real-world system design concerns such as state management, personalization, and data-driven decision making.
+
+### System Architecture & Domain Modeling
+
+From a software engineering perspective, GestALT emphasizes clear domain modeling and separation of concerns.
+Core domain concepts include:
+1. Users
+2. Challenges
+3. UI Components
+4. Perception Metrics
+5. Decisions
+
+### Outcomes
+
+These entities are explicitly defined and connected, allowing the system to scale in complexity without becoming brittle. The frontend functions as a visualization and interaction layer, not as the source of business logic.
+> Explainability by Design
+> Explainability is a first-class goal of the system.
+For every evaluation, GestALT exposes: which visual principles were violated ; which rules were triggered ; how specific changes affected perception metrics
+This mirrors real engineering systems where understanding why a system behaves a certain way is as important as the result itself.
+
+### Accessibility as a Constraint
+Accessibility is treated as a core system constraint, not a checklist.
+
+GestALT enforces **rules** related to:
+- color contrast
+- hit target size
+- keyboard navigation paths
+In advanced challenges, learners must balance aesthetic choices against accessibility requirements, reflecting real-world product tradeoffs faced by designers and engineers.
+
+### Why GestALT?
+
+GestALT is an alternative to theory-first design education. It treats perception as something that can be simulated, tested, and refined through interaction, rather than explained solely through documentation.
+
+As a project, GestALT demonstrates:
+- perception-driven UX thinking
+- system-level software design
+- rule-based evaluation
+- adaptive learning logic
+- explainable decision systems
+It is intended to function not only as a learning platform, but also as a serious software engineering portfolio project, showcasing depth beyond surface-level UI design.
