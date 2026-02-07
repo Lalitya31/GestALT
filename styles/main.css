@@ -4,23 +4,37 @@
  */
 
 :root {
-    /* Color System - Calm Perceptual Focus */
-    --color-deep-charcoal: #121417;
-    --color-soft-paper: #F4F2EE;
-    --color-muted-indigo: #4F5D75;
-    --color-warm-sand: #D6CFC4;
+    /* Color System - Playful & Enthusiastic for Young Learners */
+    /* Primary Palette - Bright & Energetic */
+    --color-sky-blue: #3B82F6;
+    --color-sunshine-yellow: #FCD34D;
+    --color-grass-green: #10B981;
+    --color-playful-purple: #A855F7;
+    --color-coral-orange: #FB923C;
+    --color-bubblegum-pink: #F472B6;
+    
+    /* Backgrounds - Light & Inviting */
+    --color-background: #F0F9FF; /* Soft sky blue */
+    --color-card-bg: #FFFFFF;
+    --color-accent-bg: #FFFBEB; /* Warm cream */
+    
+    /* Text - Warm & Friendly */
+    --color-text: #1F2937; /* Warm dark gray */
+    --color-text-muted: #6B7280;
+    --color-text-light: #9CA3AF;
     
     /* Semantic Colors */
-    --color-primary: var(--color-muted-indigo);
-    --color-background: var(--color-soft-paper);
-    --color-text: var(--color-deep-charcoal);
-    --color-text-muted: #5A5A5A;
-    --color-border: var(--color-warm-sand);
+    --color-primary: var(--color-sky-blue);
+    --color-secondary: var(--color-playful-purple);
+    --color-accent: var(--color-sunshine-yellow);
+    --color-border: #E0E7FF; /* Soft purple-blue */
     
-    /* Feedback Colors */
-    --color-success: #5A6F5A;
-    --color-warning: #C16A4A;
-    --color-info: #3A6EA5;
+    /* Feedback Colors - Vibrant & Clear */
+    --color-success: var(--color-grass-green);
+    --color-warning: var(--color-coral-orange);
+    --color-info: var(--color-sky-blue);
+    --color-achievement: var(--color-sunshine-yellow);
+    --color-special: var(--color-bubblegum-pink);
     
     /* Typography */
     --font-heading: 'Merienda', cursive;
@@ -81,9 +95,9 @@ code, .metric-value {
 
 /* Navigation */
 .main-nav {
-    background-color: var(--color-deep-charcoal);
+    background: linear-gradient(135deg, var(--color-sky-blue) 0%, var(--color-playful-purple) 100%);
     padding: var(--space-md) 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
 }
 
 .nav-container {
@@ -98,8 +112,9 @@ code, .metric-value {
 .logo {
     font-family: var(--font-heading);
     font-size: 1.8rem;
-    color: var(--color-soft-paper);
+    color: #FFFFFF;
     margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .nav-links {
@@ -112,16 +127,19 @@ code, .metric-value {
     font-family: var(--font-body);
     font-size: 0.95rem;
     font-weight: 500;
-    color: var(--color-soft-paper);
+    color: #FFFFFF;
     text-decoration: none;
-    transition: color var(--transition-fast);
-    opacity: 0.8;
+    transition: all var(--transition-fast);
+    opacity: 0.9;
+    padding: 8px 16px;
+    border-radius: 20px;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
     opacity: 1;
-    color: var(--color-warm-sand);
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
 }
 
 /* Container */
@@ -178,15 +196,17 @@ code, .metric-value {
 
 .cta-button,
 .btn-primary {
-    background-color: var(--color-primary);
-    color: var(--color-soft-paper);
+    background: linear-gradient(135deg, var(--color-sky-blue) 0%, var(--color-playful-purple) 100%);
+    color: #FFFFFF;
+    font-weight: 700;
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
 }
 
 .cta-button:hover,
 .btn-primary:hover {
-    background-color: #3A4A5C;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(79, 93, 117, 0.3);
+    background: linear-gradient(135deg, #2563EB 0%, #9333EA 100%);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(168, 85, 247, 0.5);
 }
 
 .btn-secondary {
@@ -210,10 +230,18 @@ code, .metric-value {
 
 .user-profile,
 .challenge-selector {
-    background: white;
+    background: var(--color-card-bg);
     padding: var(--space-xl);
-    border-radius: 12px;
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(59, 130, 246, 0.15);
+    border: 3px solid var(--color-border);
+    transition: transform var(--transition-base);
+}
+
+.user-profile:hover,
+.challenge-selector:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(168, 85, 247, 0.2);
 }
 
 .user-profile h2,
@@ -244,17 +272,20 @@ code, .metric-value {
 
 .skill-bar {
     width: 100%;
-    height: 8px;
-    background-color: var(--color-warm-sand);
-    border-radius: 4px;
+    height: 12px;
+    background-color: #E0E7FF;
+    border-radius: 20px;
     overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .skill-progress {
     height: 100%;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-info));
+    background: linear-gradient(90deg, var(--color-grass-green) 0%, var(--color-sky-blue) 50%, var(--color-playful-purple) 100%);
     transition: width var(--transition-slow);
     width: 0%;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+    border-radius: 20px;
 }
 
 .skill-value {
@@ -265,10 +296,17 @@ code, .metric-value {
 
 /* Challenge Card */
 .challenge-card {
-    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    background: linear-gradient(135deg, #FFFBEB 0%, #FFFFFF 100%);
     padding: var(--space-xl);
-    border-radius: 12px;
-    border: 2px solid var(--color-warm-sand);
+    border-radius: 16px;
+    border: 3px solid var(--color-sunshine-yellow);
+    box-shadow: 0 8px 24px rgba(252, 211, 77, 0.3);
+    transition: all var(--transition-base);
+}
+
+.challenge-card:hover {
+    transform: translateY(-4px) rotate(-1deg);
+    box-shadow: 0 12px 32px rgba(251, 146, 60, 0.4);
 }
 
 .challenge-title {

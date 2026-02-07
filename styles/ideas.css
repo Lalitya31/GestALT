@@ -1,7 +1,7 @@
 /* Ideas Page - Special Styling */
 
 .ideas-page {
-    background: var(--color-soft-paper);
+    background: linear-gradient(135deg, #F0F9FF 0%, #FFFBEB 100%);
 }
 
 .ideas-container {
@@ -21,25 +21,29 @@
 .ideas-title {
     font-family: var(--font-heading);
     font-size: 3.5rem;
-    color: var(--color-deep-charcoal);
+    background: linear-gradient(135deg, var(--color-sky-blue) 0%, var(--color-playful-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: var(--space-md);
     line-height: 1.1;
 }
 
 .ideas-tagline {
     font-family: var(--font-body);
-    font-size: 1.2rem;
-    font-weight: 300;
-    color: var(--color-muted-indigo);
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--color-coral-orange);
     font-style: italic;
 }
 
 /* Content */
 .ideas-content {
-    background: white;
+    background: var(--color-card-bg);
     padding: var(--space-2xl);
-    border-radius: 12px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.2);
+    border: 3px solid var(--color-border);
 }
 
 .idea-block {
@@ -56,8 +60,17 @@
 .idea-heading {
     font-family: var(--font-heading);
     font-size: 2rem;
-    color: var(--color-deep-charcoal);
+    color: var(--color-sky-blue);
     margin-bottom: var(--space-lg);
+    position: relative;
+    padding-left: var(--space-lg);
+}
+
+.idea-heading::before {
+    content: '🎯';
+    position: absolute;
+    left: 0;
+    font-size: 1.5rem;
 }
 
 .idea-text {
