@@ -1,44 +1,49 @@
 /* GestALT - Main Styles
- * Typography: Merienda (headings) + Work Sans (body) + JetBrains Mono (code/metrics)
- * Palette: Calm Perceptual Focus
+ * Typography: Fraunces (branding) + Inter (body) + JetBrains Mono (scores/metrics)
+ * Palette: Professional Learning Platform
  */
 
 :root {
-    /* Color System - Playful & Enthusiastic for Young Learners */
-    /* Primary Palette - Bright & Energetic */
-    --color-sky-blue: #3B82F6;
-    --color-sunshine-yellow: #FCD34D;
-    --color-grass-green: #10B981;
-    --color-playful-purple: #A855F7;
-    --color-coral-orange: #FB923C;
-    --color-bubblegum-pink: #F472B6;
+    /* Color System - Learning-Focused Design */
+    /* Base Colors */
+    --color-black: #0A0A0A;
+    --color-off-white: #F8F8F8;
     
-    /* Backgrounds - Light & Inviting */
-    --color-background: #F0F9FF; /* Soft sky blue */
-    --color-card-bg: #FFFFFF;
-    --color-accent-bg: #FFFBEB; /* Warm cream */
-    
-    /* Text - Warm & Friendly */
-    --color-text: #1F2937; /* Warm dark gray */
-    --color-text-muted: #6B7280;
-    --color-text-light: #9CA3AF;
+    /* Primary Accent */
+    --color-electric-indigo: #6366F1;
+    --color-indigo-dark: #4F46E5;
+    --color-indigo-light: #818CF8;
     
     /* Semantic Colors */
-    --color-primary: var(--color-sky-blue);
-    --color-secondary: var(--color-playful-purple);
-    --color-accent: var(--color-sunshine-yellow);
-    --color-border: #E0E7FF; /* Soft purple-blue */
+    --color-muted-green: #4ADE80;
+    --color-muted-green-dark: #22C55E;
+    --color-amber: #F59E0B;
+    --color-amber-dark: #D97706;
+    --color-red: #EF4444;
+    --color-red-dark: #DC2626;
     
-    /* Feedback Colors - Vibrant & Clear */
-    --color-success: var(--color-grass-green);
-    --color-warning: var(--color-coral-orange);
-    --color-info: var(--color-sky-blue);
-    --color-achievement: var(--color-sunshine-yellow);
-    --color-special: var(--color-bubblegum-pink);
+    /* Backgrounds */
+    --color-background: var(--color-off-white);
+    --color-card-bg: #FFFFFF;
+    --color-surface: #F3F4F6;
+    --color-overlay: rgba(10, 10, 10, 0.8);
+    
+    /* Text */
+    --color-text: var(--color-black);
+    --color-text-muted: #6B7280;
+    --color-text-light: #9CA3AF;
+    --color-text-inverse: var(--color-off-white);
+    
+    /* Semantic Mapping */
+    --color-primary: var(--color-electric-indigo);
+    --color-success: var(--color-muted-green);
+    --color-warning: var(--color-amber);
+    --color-error: var(--color-red);
+    --color-border: #E5E7EB;
     
     /* Typography */
-    --font-heading: 'Merienda', cursive;
-    --font-body: 'Work Sans', sans-serif;
+    --font-branding: 'Fraunces', serif;
+    --font-body: 'Inter', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
     
     /* Spacing */
@@ -73,8 +78,8 @@ body {
 }
 
 /* Typography */
-h1, h2, h3 {
-    font-family: var(--font-heading);
+h1, h2, h3, .logo, .brand {
+    font-family: var(--font-branding);
     font-weight: 700;
     line-height: 1.2;
     color: var(--color-text);
@@ -88,16 +93,16 @@ p {
     margin-bottom: var(--space-md);
 }
 
-code, .metric-value {
+code, .metric-value, .score, .timer {
     font-family: var(--font-mono);
     font-size: 0.9em;
 }
 
 /* Navigation */
 .main-nav {
-    background: linear-gradient(135deg, var(--color-sky-blue) 0%, var(--color-playful-purple) 100%);
+    background: var(--color-black);
     padding: var(--space-md) 0;
-    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+    border-bottom: 2px solid var(--color-electric-indigo);
 }
 
 .nav-container {
@@ -110,9 +115,9 @@ code, .metric-value {
 }
 
 .logo {
-    font-family: var(--font-heading);
+    font-family: var(--font-branding);
     font-size: 1.8rem;
-    color: #FFFFFF;
+    color: var(--color-off-white);
     margin: 0;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }

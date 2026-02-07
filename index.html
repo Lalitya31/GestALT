@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GestALT - An Alternative to Theory-First Design Education</title>
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/app.css">
     <link rel="stylesheet" href="styles/landing.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&family=Work+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="main-nav">
@@ -22,301 +23,376 @@
         </div>
     </nav>
 
-    <!-- LANDING PAGE -->
-    <div id="landingPage">
-        <!-- HERO SECTION - Perception First, Words Second -->
-        <section class="hero-landing">
-            <div class="hero-content">
-                <div class="hero-left">
-                    <h1 class="product-name">GestALT</h1>
-                    <p class="tagline">An alternative to theory-first design education.</p>
-                    <p class="supporting-line">Learn through perception, interaction, and feedback.</p>
+    <!-- CREATIVE LOGIN PAGE -->
+    <div id="creativeLogin" class="page active">
+        <div class="creative-login-container">
+            <div class="login-instructions">
+                <p class="instruction-text">Create your login in 5 seconds</p>
+                <p class="sub-instruction">Drag, drop, and format to proceed</p>
+            </div>
+            
+            <div class="login-canvas" id="loginCanvas">
+                <!-- Editable heading with blank name field -->
+                <h1 class="login-heading" contenteditable="true">
+                    <span class="name-label">Welcome,</span>
+                    <span class="name-input" contenteditable="true" placeholder="Your Name"></span>
+                </h1>
+                
+                <!-- Drop zone for email -->
+                <div class="email-drop-zone" data-drop-target="email">
+                    <span class="placeholder-text">Drag your email here</span>
                 </div>
                 
-                <div class="hero-right">
-                    <div class="micro-challenge">
-                        <p class="challenge-prompt">Which button do you think users click first?</p>
-                        <div class="challenge-buttons">
-                            <button class="demo-btn demo-btn-primary" data-weight="high">Sign Up</button>
-                            <button class="demo-btn demo-btn-secondary" data-weight="low">Learn More</button>
-                        </div>
-                        <div class="challenge-feedback hidden">
-                            <p class="feedback-text"></p>
-                        </div>
-                        <canvas id="heatmapCanvas" class="heatmap-overlay hidden"></canvas>
+                <!-- Draggable email element -->
+                <div class="draggable-elements">
+                    <div class="draggable email-element" draggable="true" data-element="email">
+                        <input type="email" class="email-input" placeholder="your@email.com">
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- PROBLEM SECTION - Short, Honest, Non-Marketing -->
-        <section class="problem-section">
-            <h2 class="section-title">Why UI/UX is often taught the wrong way</h2>
-            <div class="problem-list">
-                <p>Theory before experience</p>
-                <p>Rules without context</p>
-                <p>Documents instead of decisions</p>
-            </div>
-        </section>
-
-        <!-- SOLUTION SECTION - System, Not Features -->
-        <section class="solution-section">
-            <h2 class="section-title">How GestALT Works</h2>
-            <div class="solution-grid">
-                <div class="solution-item">
-                    <h3>Perception over memorization</h3>
-                    <p>Learn by seeing how design decisions change attention.</p>
-                    <div class="visual-demo" data-demo="perception"></div>
+                
+                <!-- Drop zone for CTA button -->
+                <div class="button-drop-zone" data-drop-target="button">
+                    <span class="placeholder-text">Place & format your button here</span>
                 </div>
-                <div class="solution-item">
-                    <h3>Constraints over instructions</h3>
-                    <p>Solve real problems instead of reading rules.</p>
-                    <div class="visual-demo" data-demo="constraints"></div>
+                
+                <!-- Draggable button element -->
+                <div class="draggable-elements">
+                    <button class="draggable cta-button-draggable" draggable="true" data-element="button">
+                        Sign In
+                    </button>
                 </div>
-                <div class="solution-item">
-                    <h3>Feedback over grades</h3>
-                    <p>Understand why something works or fails.</p>
-                    <div class="visual-demo" data-demo="feedback"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ALTERNATIVE SECTION - Your Philosophy -->
-        <section class="alternative-section">
-            <h2 class="section-title">What makes this an alternative</h2>
-            <div class="contrast-grid">
-                <div class="contrast-column not-this">
-                    <p>No lectures</p>
-                    <p>No slides</p>
-                    <p>No passive tutorials</p>
-                </div>
-                <div class="contrast-column but-this">
-                    <p>Interactive challenges</p>
-                    <p>Visual simulations</p>
-                    <p>Explainable outcomes</p>
+                
+                <!-- Formatting toolbar (appears when button is placed) -->
+                <div class="formatting-toolbar hidden" id="buttonToolbar">
+                    <label>
+                        <span>Size:</span>
+                        <select class="btn-size">
+                            <option value="small">Small</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="large">Large</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span>Style:</span>
+                        <select class="btn-style">
+                            <option value="primary">Primary</option>
+                            <option value="secondary">Secondary</option>
+                            <option value="ghost">Ghost</option>
+                        </select>
+                    </label>
                 </div>
             </div>
-        </section>
-
-        <!-- CREDIBILITY SECTION - Engineer-First -->
-        <section class="credibility-section">
-            <h2 class="section-title">Built as a system, not a tutorial</h2>
-            <div class="credibility-list">
-                <div class="credibility-item">
-                    <code>Perception engine evaluates hierarchy, contrast, spacing</code>
-                </div>
-                <div class="credibility-item">
-                    <code>Adaptive difficulty based on user decisions</code>
-                </div>
-                <div class="credibility-item">
-                    <code>Accessibility treated as a system constraint</code>
-                </div>
+            
+            <button id="submitLogin" class="submit-btn">Submit Design</button>
+            
+            <div class="login-feedback hidden" id="loginFeedback">
+                <h3>Evaluation</h3>
+                <div class="feedback-metrics"></div>
+                <div class="feedback-suggestions"></div>
+                <button class="proceed-btn hidden" id="proceedToOnboarding">Proceed →</button>
             </div>
-        </section>
-
-        <!-- HEART AND SOUL SECTION -->
-        <section class="heart-soul-section">
-            <h2 class="section-title">Heart and Soul</h2>
-            <div class="soul-content">
-                <p>
-                    Every decision in this project was made with intentionality. From the perception 
-                    simulation engine to the typography choices, GestALT is not just a portfolio piece—it's 
-                    a statement about how learning systems should work.
-                </p>
-                <p>
-                    UI/UX is inherently visual and experiential. Yet most beginners learn it through 
-                    text-heavy documentation and static explanations. This contradiction never made sense to me.
-                </p>
-                <p>
-                    GestALT emerged from a simple belief: <strong>you learn design by experiencing the 
-                    consequences of your decisions</strong>, not by memorizing principles. Perception should 
-                    be simulated, tested, and refined through interaction.
-                </p>
-                <p>
-                    The perception engine doesn't give subjective opinions—it calculates attention flow, 
-                    hierarchy strength, and cognitive load using deterministic rules based on visual properties. 
-                    The accessibility validator enforces WCAG standards in real-time, not as suggestions. 
-                    The adaptive learning system tracks your patterns and adjusts challenges accordingly.
-                </p>
-                <p>
-                    This fusion of design sensitivity and engineering rigor reflects what I believe software 
-                    should be: <strong>technically sophisticated and deeply human</strong>.
-                </p>
-                <p>
-                    GestALT is an alternative because it treats perception as something to be modeled, 
-                    learning as something to be personalized, and accessibility as something to be enforced. 
-                    It's built with the same care I'd want in any system I use.
-                </p>
-                <p class="soul-signature">This is where my heart and soul went. Into every calculation, 
-                every interaction, every line of code.</p>
-            </div>
-        </section>
-
-        <!-- CTA SECTION - Low Commitment -->
-        <section class="cta-section">
-            <button id="startLearning" class="cta-button">Try a challenge</button>
-            <p class="cta-subtitle">Experience the alternative</p>
-        </section>
+        </div>
     </div>
 
-    <!-- CHALLENGE INTERFACE (Hidden initially) -->
-    <main class="container hidden" id="challengeInterface">
-        <div class="challenge-header">
-            <button id="exitChallenge" class="btn-secondary">← Back</button>
-            <h2 id="currentChallengeTitle"></h2>
-        </div>
-
-        <p class="instruction" id="challengeInstruction"></p>
-
-        <div class="challenge-layout">
-            <div class="canvas-container">
-                <h3>Interface Workspace</h3>
-                <div id="uiCanvas" class="ui-canvas"></div>
+    <!-- ONBOARDING PAGE -->
+    <div id="onboardingPage" class="page hidden">
+        <div class="onboarding-container">
+            <h2 class="onboarding-title">Which interface is correct?</h2>
+            <p class="onboarding-subtitle">Choose the UI that follows best practices</p>
+            
+            <div class="ui-options-grid" id="uiOptionsGrid">
+                <!-- UI options will be dynamically generated -->
             </div>
-
-            <div class="controls-panel">
-                <h3>Modify Properties</h3>
-                <div id="propertyControls" class="property-controls"></div>
-                
-                <button id="evaluateDesign" class="btn-primary">Evaluate Design</button>
-                
-                <div id="perceptionMetrics" class="perception-metrics hidden">
-                    <h4>Perception Analysis</h4>
-                    <div class="metric-grid">
-                        <div class="metric-item">
-                            <span class="metric-label">First Attention</span>
-                            <div class="metric-value" id="metricAttention">-</div>
-                        </div>
-                        <div class="metric-item">
-                            <span class="metric-label">Hierarchy Strength</span>
-                            <div class="metric-value" id="metricHierarchy">-</div>
-                        </div>
-                        <div class="metric-item">
-                            <span class="metric-label">Cognitive Load</span>
-                            <div class="metric-value" id="metricCognitiveLoad">-</div>
-                        </div>
-                        <div class="metric-item">
-                            <span class="metric-label">Error Likelihood</span>
-                            <div class="metric-value" id="metricErrorRate">-</div>
-                        </div>
-                    </div>
-                    
-                    <div id="explainability" class="explainability"></div>
+            
+            <div class="explanation-section hidden" id="explanationSection">
+                <h3>Why is this correct?</h3>
+                <div class="reason-options" id="reasonOptions">
+                    <!-- Reason options will be dynamically generated -->
                 </div>
-
-                <div id="accessibilityReport" class="accessibility-report hidden">
-                    <h4>Accessibility Constraints</h4>
-                    <div id="a11yResults"></div>
+            </div>
+            
+            <div class="principle-reveal hidden" id="principleReveal">
+                <div class="principle-card">
+                    <h3 class="principle-title"></h3>
+                    <p class="principle-description"></p>
+                    <div class="principle-examples"></div>
+                    <button id="proceedToChallenges" class="proceed-btn">Start Challenges →</button>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 
-    <script type="module" src="js/main.js"></script>
-</body>
-</html>
-
-        <section id="dashboard" class="dashboard hidden">
-            <div class="user-profile">
-                <h2>Your Learning Profile</h2>
-                <div class="skill-metrics">
-                    <div class="skill-item">
-                        <span class="skill-label">Visual Hierarchy</span>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-skill="hierarchy"></div>
-                        </div>
-                        <span class="skill-value" data-skill-value="hierarchy">0%</span>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-label">Accessibility</span>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-skill="accessibility"></div>
-                        </div>
-                        <span class="skill-value" data-skill-value="accessibility">0%</span>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-label">Form Design</span>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-skill="forms"></div>
-                        </div>
-                        <span class="skill-value" data-skill-value="forms">0%</span>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-label">Spacing & Rhythm</span>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-skill="spacing"></div>
-                        </div>
-                        <span class="skill-value" data-skill-value="spacing">0%</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="challenge-selector">
-                <h2>Next Challenge</h2>
-                <div id="challengeCard" class="challenge-card">
-                    <h3 class="challenge-title"></h3>
-                    <p class="challenge-description"></p>
-                    <div class="challenge-meta">
-                        <span class="challenge-difficulty"></span>
-                        <span class="challenge-time"></span>
-                    </div>
-                    <button class="challenge-start">Start Challenge</button>
-                </div>
-            </div>
-        </section>
-
-        <section id="challengeArea" class="challenge-area hidden">
+    <!-- CHALLENGE SCREEN -->
+    <div id="challengeScreen" class="page hidden">
+        <div class="challenge-container">
             <div class="challenge-header">
-                <button id="exitChallenge" class="btn-secondary">← Exit</button>
-                <h2 id="currentChallengeTitle"></h2>
-            </div>
-
-            <div class="challenge-layout">
-                <div class="canvas-container">
-                    <h3>Interface Workspace</h3>
-                    <p class="instruction" id="challengeInstruction"></p>
-                    <div id="uiCanvas" class="ui-canvas"></div>
+                <h2 id="challengeTitle">Challenge</h2>
+                <div class="challenge-meta">
+                    <span class="difficulty-badge" id="difficultyBadge"></span>
+                    <span class="score-display" id="currentScore">Score: 0</span>
                 </div>
-
-                <div class="controls-panel">
-                    <h3>Modify Properties</h3>
-                    <div id="propertyControls" class="property-controls"></div>
-                    
-                    <button id="evaluateDesign" class="btn-primary">Evaluate Design</button>
-                    
-                    <div id="perceptionMetrics" class="perception-metrics hidden">
-                        <h4>Perception Analysis</h4>
-                        <div class="metric-grid">
-                            <div class="metric-item">
-                                <span class="metric-label">First Attention</span>
-                                <div class="metric-value" id="metricAttention">-</div>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-label">Hierarchy Strength</span>
-                                <div class="metric-value" id="metricHierarchy">-</div>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-label">Cognitive Load</span>
-                                <div class="metric-value" id="metricCognitiveLoad">-</div>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-label">Error Likelihood</span>
-                                <div class="metric-value" id="metricErrorRate">-</div>
+            </div>
+            
+            <div class="challenge-layout">
+                <!-- Toolbox (Left Side) -->
+                <div class="toolbox">
+                    <h3>Toolbox</h3>
+                    <div class="tool-categories">
+                        <div class="tool-category">
+                            <h4>Layout</h4>
+                            <div class="tool-items">
+                                <button class="tool-btn" data-tool="spacing">Spacing</button>
+                                <button class="tool-btn" data-tool="alignment">Alignment</button>
+                                <button class="tool-btn" data-tool="grid">Grid</button>
                             </div>
                         </div>
-                        
-                        <div id="explainability" class="explainability"></div>
+                        <div class="tool-category">
+                            <h4>Typography</h4>
+                            <div class="tool-items">
+                                <button class="tool-btn" data-tool="font-size">Size</button>
+                                <button class="tool-btn" data-tool="font-weight">Weight</button>
+                                <button class="tool-btn" data-tool="line-height">Line Height</button>
+                            </div>
+                        </div>
+                        <div class="tool-category">
+                            <h4>Color</h4>
+                            <div class="tool-items">
+                                <button class="tool-btn" data-tool="contrast">Contrast</button>
+                                <button class="tool-btn" data-tool="hierarchy">Hierarchy</button>
+                            </div>
+                        </div>
+                        <div class="tool-category">
+                            <h4>Interaction</h4>
+                            <div class="tool-items">
+                                <button class="tool-btn" data-tool="button-size">Button Size</button>
+                                <button class="tool-btn" data-tool="touch-target">Touch Target</button>
+                            </div>
+                        </div>
                     </div>
-
-                    <div id="accessibilityReport" class="accessibility-report hidden">
-                        <h4>Accessibility Constraints</h4>
-                        <div id="a11yResults"></div>
+                </div>
+                
+                <!-- UI Canvas (Center) -->
+                <div class="ui-canvas-container">
+                    <div class="canvas-instructions" id="canvasInstructions">
+                        Fix the UI/UX issues by selecting elements and using the toolbox
+                    </div>
+                    <div id="uiCanvas" class="ui-canvas">
+                        <!-- Challenge UI elements will be loaded here -->
+                    </div>
+                    
+                    <!-- Property Editor (appears when element selected) -->
+                    <div class="property-editor hidden" id="propertyEditor">
+                        <h4>Edit Properties</h4>
+                        <div id="propertyControls"></div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+            
+            <!-- Bottom Controls -->
+            <div class="challenge-controls">
+                <div class="timer-display">
+                    <span class="timer-icon">⏱</span>
+                    <span class="timer-value" id="timerValue">00:00</span>
+                </div>
+                <button id="clueBtn" class="control-btn">
+                    <span>💡</span> Clue (<span id="cluesRemaining">3</span>)
+                </button>
+                <button id="submitChallenge" class="submit-btn primary">Submit</button>
+            </div>
+            
+            <div class="clue-panel hidden" id="cluePanel">
+                <p class="clue-text"></p>
+            </div>
+        </div>
+    </div>
 
-    <script type="module" src="js/main.js"></script>
+    <!-- RESULTS SCREEN -->
+    <div id="resultsScreen" class="page hidden">
+        <div class="results-container">
+            <h2 class="results-title">Challenge Complete!</h2>
+            
+            <!-- Heatmap Visualization -->
+            <div class="heatmap-container">
+                <h3>Attention Heatmap</h3>
+                <canvas id="resultsHeatmap" class="results-heatmap"></canvas>
+            </div>
+            
+            <!-- Score Display -->
+            <div class="score-breakdown">
+                <div class="final-score">
+                    <span class="score-label">Score</span>
+                    <span class="score-value" id="finalScore">0</span>
+                </div>
+                
+                <div class="xp-progress">
+                    <div class="xp-bar">
+                        <div class="xp-fill" id="xpFill"></div>
+                    </div>
+                    <span class="xp-text">+<span id="xpGained">0</span> XP</span>
+                </div>
+            </div>
+            
+            <!-- Metrics Breakdown -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h4>Cognitive Load Reduced</h4>
+                    <div class="metric-value-large">
+                        <span id="cognitiveLoadReduction">0</span>%
+                    </div>
+                    <p class="metric-description">Users process information easier</p>
+                </div>
+                
+                <div class="metric-card">
+                    <h4>Constraint Improvement</h4>
+                    <div class="metric-value-large">
+                        <span id="constraintScore">0</span>%
+                    </div>
+                    <p class="metric-description">Accessibility & usability compliance</p>
+                </div>
+                
+                <div class="metric-card">
+                    <h4>Time Taken</h4>
+                    <div class="metric-value-large">
+                        <span id="timeTaken">00:00</span>
+                    </div>
+                    <p class="metric-description">Decision speed</p>
+                </div>
+                
+                <div class="metric-card">
+                    <h4>Improvement</h4>
+                    <div class="metric-value-large">
+                        +<span id="improvementPercent">0</span>%
+                    </div>
+                    <p class="metric-description">Over previous attempts</p>
+                </div>
+            </div>
+            
+            <!-- Theory/Law Explanation -->
+            <div class="theory-section">
+                <h3>Design Principles Applied</h3>
+                <div id="theoryExplanations" class="theory-list">
+                    <!-- Dynamically populated with theories -->
+                </div>
+            </div>
+            
+            <button id="proceedToDashboard" class="proceed-btn large">View Dashboard →</button>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboardPage" class="page hidden">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Learning Dashboard</h1>
+                <div class="user-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Total XP</span>
+                        <span class="stat-value" id="totalXP">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Lessons Completed</span>
+                        <span class="stat-value" id="lessonsCompleted">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Current Streak</span>
+                        <span class="stat-value" id="currentStreak">0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Progress Metrics -->
+            <div class="progress-section">
+                <h2>Your Progress</h2>
+                <div class="progress-metrics">
+                    <div class="progress-metric">
+                        <div class="metric-header">
+                            <span class="metric-name">Visual Hierarchy</span>
+                            <span class="metric-percentage" id="hierarchyPercent">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="hierarchyProgress"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-metric">
+                        <div class="metric-header">
+                            <span class="metric-name">Accessibility</span>
+                            <span class="metric-percentage" id="accessibilityPercent">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="accessibilityProgress"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-metric">
+                        <div class="metric-header">
+                            <span class="metric-name">Decision Speed</span>
+                            <span class="metric-percentage" id="decisionSpeedPercent">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="decisionSpeedProgress"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-metric">
+                        <div class="metric-header">
+                            <span class="metric-name">Cognitive Load Management</span>
+                            <span class="metric-percentage" id="cognitivePercent">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="cognitiveProgress"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Lesson Plans -->
+            <div class="lessons-section">
+                <h2>Your Lessons</h2>
+                <div class="lessons-grid" id="lessonsGrid">
+                    <!-- Lesson cards will be dynamically generated -->
+                </div>
+            </div>
+            
+            <!-- Recommendations -->
+            <div class="recommendations-section">
+                <h2>Recommended Next</h2>
+                <div class="recommendations-grid" id="recommendationsGrid">
+                    <!-- Recommendation cards will be dynamically generated -->
+                </div>
+            </div>
+            
+            <!-- Insights -->
+            <div class="insights-section">
+                <h2>Insights & Suggestions</h2>
+                <div class="insights-container">
+                    <div class="insight-category">
+                        <h3>💪 Strengths</h3>
+                        <ul id="strengthsList" class="insight-list">
+                            <!-- Dynamically populated -->
+                        </ul>
+                    </div>
+                    
+                    <div class="insight-category">
+                        <h3>📈 Improvements</h3>
+                        <ul id="improvementsList" class="insight-list">
+                            <!-- Dynamically populated -->
+                        </ul>
+                    </div>
+                    
+                    <div class="insight-category">
+                        <h3>🎯 Focus Areas</h3>
+                        <ul id="focusAreasList" class="insight-list">
+                            <!-- Dynamically populated -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="continuelearning" class="proceed-btn large">Continue Learning →</button>
+        </div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>
