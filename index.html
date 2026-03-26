@@ -1,398 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GestALT - An Alternative to Theory-First Design Education</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/app.css">
-    <link rel="stylesheet" href="styles/landing.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GestALT platform</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-</head>
-<body>
-    <nav class="main-nav">
-        <div class="nav-container">
-            <h1 class="logo">GestALT</h1>
-            <ul class="nav-links">
-                <li><a href="#learn" class="active">Home</a></li>
-                <li><a href="architecture.html">Architecture</a></li>
-                <li><a href="#challenges">Challenges</a></li>
-            </ul>
-        </div>
-    </nav>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    <style>
+      .hero,
+      .hero-landing,
+      [data-hero] {
+        filter: url(#grain);
+        position: relative;
+      }
 
-    <!-- CREATIVE LOGIN PAGE -->
-    <div id="creativeLogin" class="page active">
-        <div class="creative-login-container">
-            <div class="login-instructions">
-                <p class="instruction-text">Create your login in 5 seconds</p>
-                <p class="sub-instruction">Drag, drop, and format to proceed</p>
-            </div>
-            
-            <div class="login-canvas" id="loginCanvas">
-                <!-- Editable heading with blank name field -->
-                <h1 class="login-heading" contenteditable="true">
-                    <span class="name-label">Welcome,</span>
-                    <span class="name-input" contenteditable="true" placeholder="Your Name"></span>
-                </h1>
-                
-                <!-- Drop zone for email -->
-                <div class="email-drop-zone" data-drop-target="email">
-                    <span class="placeholder-text">Drag your email here</span>
-                </div>
-                
-                <!-- Draggable email element -->
-                <div class="draggable-elements">
-                    <div class="draggable email-element" draggable="true" data-element="email">
-                        <input type="email" class="email-input" placeholder="your@email.com">
-                    </div>
-                </div>
-                
-                <!-- Drop zone for CTA button -->
-                <div class="button-drop-zone" data-drop-target="button">
-                    <span class="placeholder-text">Place & format your button here</span>
-                </div>
-                
-                <!-- Draggable button element -->
-                <div class="draggable-elements">
-                    <button class="draggable cta-button-draggable" draggable="true" data-element="button">
-                        Sign In
-                    </button>
-                </div>
-                
-                <!-- Formatting toolbar (appears when button is placed) -->
-                <div class="formatting-toolbar hidden" id="buttonToolbar">
-                    <label>
-                        <span>Size:</span>
-                        <select class="btn-size">
-                            <option value="small">Small</option>
-                            <option value="medium" selected>Medium</option>
-                            <option value="large">Large</option>
-                        </select>
-                    </label>
-                    <label>
-                        <span>Style:</span>
-                        <select class="btn-style">
-                            <option value="primary">Primary</option>
-                            <option value="secondary">Secondary</option>
-                            <option value="ghost">Ghost</option>
-                        </select>
-                    </label>
-                </div>
-            </div>
-            
-            <button id="submitLogin" class="submit-btn">Submit Design</button>
-            
-            <div class="login-feedback hidden" id="loginFeedback">
-                <h3>Evaluation</h3>
-                <div class="feedback-metrics"></div>
-                <div class="feedback-suggestions"></div>
-                <button class="proceed-btn hidden" id="proceedToOnboarding">Proceed →</button>
-            </div>
-        </div>
-    </div>
+      .hero::after,
+      .hero-landing::after,
+      [data-hero]::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(circle at 35% 25%, rgba(255,255,255,0.09), rgba(0,0,0,0.05));
+        opacity: 0.03;
+      }
 
-    <!-- ONBOARDING PAGE -->
-    <div id="onboardingPage" class="page hidden">
-        <div class="onboarding-container">
-            <h2 class="onboarding-title">Which interface is correct?</h2>
-            <p class="onboarding-subtitle">Choose the UI that follows best practices</p>
-            
-            <div class="ui-options-grid" id="uiOptionsGrid">
-                <!-- UI options will be dynamically generated -->
-            </div>
-            
-            <div class="explanation-section hidden" id="explanationSection">
-                <h3>Why is this correct?</h3>
-                <div class="reason-options" id="reasonOptions">
-                    <!-- Reason options will be dynamically generated -->
-                </div>
-            </div>
-            
-            <div class="principle-reveal hidden" id="principleReveal">
-                <div class="principle-card">
-                    <h3 class="principle-title"></h3>
-                    <p class="principle-description"></p>
-                    <div class="principle-examples"></div>
-                    <button id="proceedToChallenges" class="proceed-btn">Start Challenges →</button>
-                </div>
-            </div>
-        </div>
-    </div>
+      body {
+        overflow-x: hidden;
+      }
 
-    <!-- CHALLENGE SCREEN -->
-    <div id="challengeScreen" class="page hidden">
-        <div class="challenge-container">
-            <div class="challenge-header">
-                <h2 id="challengeTitle">Challenge</h2>
-                <div class="challenge-meta">
-                    <span class="difficulty-badge" id="difficultyBadge"></span>
-                    <span class="score-display" id="currentScore">Score: 0</span>
-                </div>
-            </div>
-            
-            <div class="challenge-layout">
-                <!-- Toolbox (Left Side) -->
-                <div class="toolbox">
-                    <h3>Toolbox</h3>
-                    <div class="tool-categories">
-                        <div class="tool-category">
-                            <h4>Layout</h4>
-                            <div class="tool-items">
-                                <button class="tool-btn" data-tool="spacing">Spacing</button>
-                                <button class="tool-btn" data-tool="alignment">Alignment</button>
-                                <button class="tool-btn" data-tool="grid">Grid</button>
-                            </div>
-                        </div>
-                        <div class="tool-category">
-                            <h4>Typography</h4>
-                            <div class="tool-items">
-                                <button class="tool-btn" data-tool="font-size">Size</button>
-                                <button class="tool-btn" data-tool="font-weight">Weight</button>
-                                <button class="tool-btn" data-tool="line-height">Line Height</button>
-                            </div>
-                        </div>
-                        <div class="tool-category">
-                            <h4>Color</h4>
-                            <div class="tool-items">
-                                <button class="tool-btn" data-tool="contrast">Contrast</button>
-                                <button class="tool-btn" data-tool="hierarchy">Hierarchy</button>
-                            </div>
-                        </div>
-                        <div class="tool-category">
-                            <h4>Interaction</h4>
-                            <div class="tool-items">
-                                <button class="tool-btn" data-tool="button-size">Button Size</button>
-                                <button class="tool-btn" data-tool="touch-target">Touch Target</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- UI Canvas (Center) -->
-                <div class="ui-canvas-container">
-                    <div class="canvas-instructions" id="canvasInstructions">
-                        Fix the UI/UX issues by selecting elements and using the toolbox
-                    </div>
-                    <div id="uiCanvas" class="ui-canvas">
-                        <!-- Challenge UI elements will be loaded here -->
-                    </div>
-                    
-                    <!-- Property Editor (appears when element selected) -->
-                    <div class="property-editor hidden" id="propertyEditor">
-                        <h4>Edit Properties</h4>
-                        <div id="propertyControls"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Bottom Controls -->
-            <div class="challenge-controls">
-                <div class="timer-display">
-                    <span class="timer-icon">⏱</span>
-                    <span class="timer-value" id="timerValue">00:00</span>
-                </div>
-                <button id="clueBtn" class="control-btn">
-                    <span>💡</span> Clue (<span id="cluesRemaining">3</span>)
-                </button>
-                <button id="submitChallenge" class="submit-btn primary">Submit</button>
-            </div>
-            
-            <div class="clue-panel hidden" id="cluePanel">
-                <p class="clue-text"></p>
-            </div>
-        </div>
-    </div>
+      .skip-link {
+        position: fixed;
+        top: -48px;
+        left: 16px;
+        z-index: 2000;
+        background: #6366F1;
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 14px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+      }
 
-    <!-- RESULTS SCREEN -->
-    <div id="resultsScreen" class="page hidden">
-        <div class="results-container">
-            <h2 class="results-title">Challenge Complete!</h2>
-            
-            <!-- Heatmap Visualization -->
-            <div class="heatmap-container">
-                <h3>Attention Heatmap</h3>
-                <canvas id="resultsHeatmap" class="results-heatmap"></canvas>
-            </div>
-            
-            <!-- Score Display -->
-            <div class="score-breakdown">
-                <div class="final-score">
-                    <span class="score-label">Score</span>
-                    <span class="score-value" id="finalScore">0</span>
-                </div>
-                
-                <div class="xp-progress">
-                    <div class="xp-bar">
-                        <div class="xp-fill" id="xpFill"></div>
-                    </div>
-                    <span class="xp-text">+<span id="xpGained">0</span> XP</span>
-                </div>
-            </div>
-            
-            <!-- Metrics Breakdown -->
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <h4>Cognitive Load Reduced</h4>
-                    <div class="metric-value-large">
-                        <span id="cognitiveLoadReduction">0</span>%
-                    </div>
-                    <p class="metric-description">Users process information easier</p>
-                </div>
-                
-                <div class="metric-card">
-                    <h4>Constraint Improvement</h4>
-                    <div class="metric-value-large">
-                        <span id="constraintScore">0</span>%
-                    </div>
-                    <p class="metric-description">Accessibility & usability compliance</p>
-                </div>
-                
-                <div class="metric-card">
-                    <h4>Time Taken</h4>
-                    <div class="metric-value-large">
-                        <span id="timeTaken">00:00</span>
-                    </div>
-                    <p class="metric-description">Decision speed</p>
-                </div>
-                
-                <div class="metric-card">
-                    <h4>Improvement</h4>
-                    <div class="metric-value-large">
-                        +<span id="improvementPercent">0</span>%
-                    </div>
-                    <p class="metric-description">Over previous attempts</p>
-                </div>
-            </div>
-            
-            <!-- Theory/Law Explanation -->
-            <div class="theory-section">
-                <h3>Design Principles Applied</h3>
-                <div id="theoryExplanations" class="theory-list">
-                    <!-- Dynamically populated with theories -->
-                </div>
-            </div>
-            
-            <button id="proceedToDashboard" class="proceed-btn large">View Dashboard →</button>
-        </div>
-    </div>
+      .skip-link:focus-visible {
+        top: 12px;
+      }
 
-    <!-- DASHBOARD -->
-    <div id="dashboardPage" class="page hidden">
-        <div class="dashboard-container">
-            <div class="dashboard-header">
-                <h1 class="dashboard-title">Learning Dashboard</h1>
-                <div class="user-stats">
-                    <div class="stat-item">
-                        <span class="stat-label">Total XP</span>
-                        <span class="stat-value" id="totalXP">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Lessons Completed</span>
-                        <span class="stat-value" id="lessonsCompleted">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Current Streak</span>
-                        <span class="stat-value" id="currentStreak">0</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Progress Metrics -->
-            <div class="progress-section">
-                <h2>Your Progress</h2>
-                <div class="progress-metrics">
-                    <div class="progress-metric">
-                        <div class="metric-header">
-                            <span class="metric-name">Visual Hierarchy</span>
-                            <span class="metric-percentage" id="hierarchyPercent">0%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="hierarchyProgress"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="progress-metric">
-                        <div class="metric-header">
-                            <span class="metric-name">Accessibility</span>
-                            <span class="metric-percentage" id="accessibilityPercent">0%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="accessibilityProgress"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="progress-metric">
-                        <div class="metric-header">
-                            <span class="metric-name">Decision Speed</span>
-                            <span class="metric-percentage" id="decisionSpeedPercent">0%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="decisionSpeedProgress"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="progress-metric">
-                        <div class="metric-header">
-                            <span class="metric-name">Cognitive Load Management</span>
-                            <span class="metric-percentage" id="cognitivePercent">0%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="cognitiveProgress"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Lesson Plans -->
-            <div class="lessons-section">
-                <h2>Your Lessons</h2>
-                <div class="lessons-grid" id="lessonsGrid">
-                    <!-- Lesson cards will be dynamically generated -->
-                </div>
-            </div>
-            
-            <!-- Recommendations -->
-            <div class="recommendations-section">
-                <h2>Recommended Next</h2>
-                <div class="recommendations-grid" id="recommendationsGrid">
-                    <!-- Recommendation cards will be dynamically generated -->
-                </div>
-            </div>
-            
-            <!-- Insights -->
-            <div class="insights-section">
-                <h2>Insights & Suggestions</h2>
-                <div class="insights-container">
-                    <div class="insight-category">
-                        <h3>💪 Strengths</h3>
-                        <ul id="strengthsList" class="insight-list">
-                            <!-- Dynamically populated -->
-                        </ul>
-                    </div>
-                    
-                    <div class="insight-category">
-                        <h3>📈 Improvements</h3>
-                        <ul id="improvementsList" class="insight-list">
-                            <!-- Dynamically populated -->
-                        </ul>
-                    </div>
-                    
-                    <div class="insight-category">
-                        <h3>🎯 Focus Areas</h3>
-                        <ul id="focusAreasList" class="insight-list">
-                            <!-- Dynamically populated -->
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <button id="continuelearning" class="proceed-btn large">Continue Learning →</button>
-        </div>
-    </div>
+      *:focus-visible {
+        outline: 2px solid #6366F1;
+        outline-offset: 2px;
+      }
 
-    <script type="module" src="js/app.js"></script>
-</body>
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="dark font-sans antialiased bg-[#080808]">
+    <a class="skip-link" href="#root">Skip to content</a>
+    <!-- Film Grain SVG Filter Definition -->
+    <svg style="display:none;">
+      <defs>
+        <filter id="grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+          <feColorMatrix type="saturate" values="0"/>
+        </filter>
+      </defs>
+    </svg>
+
+    <script src="js/systems/GlobalUX.js"></script>
+    <script src="js/systems/DataManager.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>

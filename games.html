@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GestALT — Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/games.css">
+</head>
+<body>
+<a class="skip-link" href="#mainContent">Skip to content</a>
+
+<!-- ============================================================
+     G1 — PROXIMITY FIELD
+     ============================================================ -->
+<section class="game-page" id="g1ProximityField" tabindex="-1">
+
+  <!-- BRIEF SCREEN -->
+  <div class="brief-screen" id="g1Brief">
+    <span class="game-number">G01</span>
+    <h1 class="brief-title">Proximity</h1>
+    <p class="brief-def">Elements close together are perceived as a group.</p>
+    <p class="brief-tap">TAP TO BEGIN</p>
+  </div>
+
+  <!-- CHALLENGE HEADER -->
+  <header class="challenge-header" id="g1Header" style="display:none;">
+    <span class="game-label">Proximity Field</span>
+    <span class="challenge-counter" id="g1Counter">CHALLENGE 01 / 10</span>
+    <div class="header-right">
+      <span class="score-display" id="g1Score">0</span>
+      <div class="vera-orb" id="g1VeraOrb"></div>
+    </div>
+  </header>
+
+  <!-- CHALLENGE ARENA -->
+  <div class="challenge-arena" id="g1Arena" style="display:none;">
+    <!-- Left theory panel -->
+    <aside class="theory-panel" id="g1Theory">
+      <button class="theory-toggle" id="g1TheoryToggle">
+        <span class="toggle-icon">◀</span>
+      </button>
+      <div class="theory-content">
+        <p class="theory-label">THE PRINCIPLE</p>
+        <p class="theory-text" id="g1TheoryText">
+          Proximity groups elements perceptually. The closer two elements are, the more the brain assumes they belong together — regardless of color, shape, or size.
+        </p>
+      </div>
+    </aside>
+
+    <!-- Center canvas -->
+    <main class="arena-center" id="mainContent">
+      <div class="target-shape-container">
+        <p class="target-label">TARGET</p>
+        <canvas id="g1TargetCanvas" width="100" height="100"></canvas>
+      </div>
+      <canvas id="g1Canvas"></canvas>
+      <div class="match-display">
+        <span class="match-label">MATCH</span>
+        <span class="match-value" id="g1Match">0%</span>
+      </div>
+      <div class="gravity-controls">
+        <button class="grav-btn active" data-radius="80" id="g1GravS">S</button>
+        <button class="grav-btn" data-radius="160" id="g1GravM">M</button>
+        <button class="grav-btn" data-radius="240" id="g1GravL">L</button>
+      </div>
+      <div class="timer-bar" id="g1TimerBar" style="display:none;">
+        <span class="timer-label">TIME</span>
+        <span class="timer-value" id="g1Timer">90</span>
+      </div>
+    </main>
+
+    <!-- Right metrics panel -->
+    <aside class="metrics-panel">
+      <div class="metric-row">
+        <span class="metric-label">SCORE</span>
+        <span class="metric-val" id="g1ScoreRight">0</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">ATTEMPT</span>
+        <span class="metric-val" id="g1Attempt">1</span>
+      </div>
+      <div class="vera-commentary" id="g1VeraComment">—</div>
+    </aside>
+  </div>
+
+  <!-- DEBRIEF OVERLAY -->
+  <div class="debrief-overlay" id="g1Debrief" style="display:none;">
+    <div class="debrief-inner">
+      <div class="debrief-green" id="g1DebriefGood"></div>
+      <div class="debrief-red" id="g1DebriefMiss"></div>
+      <p class="debrief-principle">Proximity creates perceptual groups — distance is the signal.</p>
+      <button class="next-btn" id="g1Next">NEXT CHALLENGE →</button>
+    </div>
+  </div>
+
+  <!-- GAME COMPLETE -->
+  <div class="game-complete" id="g1Complete" style="display:none;">
+    <div class="complete-score-wrap">
+      <span class="complete-score" id="g1FinalScore">0</span>
+      <span class="complete-xp" id="g1XP">+0 XP</span>
+    </div>
+    <div class="principle-card">
+      <p class="pc-game">G01 — Proximity Field</p>
+      <p class="pc-principle">Proximity</p>
+      <ul class="pc-rules">
+        <li>Closeness implies relationship</li>
+        <li>Distance creates separation</li>
+        <li>Groups emerge without borders</li>
+      </ul>
+      <p class="pc-score" id="g1PcScore">Score: 0</p>
+      <span class="pc-stamp">EARNED</span>
+    </div>
+    <button class="return-btn" id="g1Return">RETURN TO DASHBOARD</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     G2 — SIMILARITY MATCH
+     ============================================================ -->
+<section class="game-page" id="g2SimilarityMatch">
+
+  <div class="brief-screen" id="g2Brief">
+    <span class="game-number">G02</span>
+    <h1 class="brief-title">Similarity</h1>
+    <p class="brief-def">Shared visual properties imply relationship.</p>
+    <p class="brief-tap">TAP TO BEGIN</p>
+  </div>
+
+  <header class="challenge-header" id="g2Header" style="display:none;">
+    <span class="game-label">Similarity Match</span>
+    <span class="challenge-counter" id="g2Counter">CHALLENGE 01 / 10</span>
+    <div class="header-right">
+      <span class="score-display" id="g2Score">0</span>
+      <div class="vera-orb" id="g2VeraOrb"></div>
+    </div>
+  </header>
+
+  <div class="challenge-arena" id="g2Arena" style="display:none;">
+    <!-- Left sliders panel -->
+    <aside class="theory-panel" id="g2Theory">
+      <button class="theory-toggle" id="g2TheoryToggle"><span class="toggle-icon">◀</span></button>
+      <div class="theory-content">
+        <p class="theory-label">THE PRINCIPLE</p>
+        <p class="theory-text" id="g2TheoryText">
+          Similarity groups elements that share visual properties — color, size, shape, or weight. Related items should look related; unrelated items should look distinct.
+        </p>
+        <div class="slider-section" id="g2Sliders">
+          <p class="slider-section-label">ADJUST SELECTED GROUP</p>
+          <label class="slider-label">Color Hue <span id="g2HueVal">0°</span></label>
+          <input type="range" class="g-slider" id="g2Hue" min="-180" max="180" value="0">
+          <label class="slider-label">Size <span id="g2SizeVal">100%</span></label>
+          <input type="range" class="g-slider" id="g2Size" min="60" max="140" value="100">
+          <label class="slider-label">Roundness <span id="g2RoundVal">0px</span></label>
+          <input type="range" class="g-slider" id="g2Round" min="0" max="50" value="0">
+          <label class="slider-label">Weight <span id="g2WeightVal">400</span></label>
+          <input type="range" class="g-slider" id="g2Weight" min="400" max="800" step="100" value="400">
+        </div>
+      </div>
+    </aside>
+
+    <main class="arena-center">
+      <div class="sim-toolbar">
+        <button class="sim-btn active" id="g2BeforeAfter">ORIGINAL</button>
+        <span class="sim-score-label">SIMILARITY SCORE</span>
+        <span class="sim-score-val" id="g2SimScore">0%</span>
+        <button class="sim-submit-btn" id="g2Submit">SUBMIT</button>
+      </div>
+      <div class="sim-preview" id="g2Preview"></div>
+    </main>
+
+    <aside class="metrics-panel">
+      <div class="metric-row">
+        <span class="metric-label">SCORE</span>
+        <span class="metric-val" id="g2ScoreRight">0</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">ATTEMPT</span>
+        <span class="metric-val" id="g2Attempt">1</span>
+      </div>
+      <div class="vera-commentary" id="g2VeraComment">—</div>
+    </aside>
+  </div>
+
+  <div class="debrief-overlay" id="g2Debrief" style="display:none;">
+    <div class="debrief-inner">
+      <div class="debrief-green" id="g2DebriefGood"></div>
+      <div class="debrief-red" id="g2DebriefMiss"></div>
+      <p class="debrief-principle">Similarity signals relationship — visual consistency is a language.</p>
+      <button class="next-btn" id="g2Next">NEXT CHALLENGE →</button>
+    </div>
+  </div>
+
+  <div class="game-complete" id="g2Complete" style="display:none;">
+    <div class="complete-score-wrap">
+      <span class="complete-score" id="g2FinalScore">0</span>
+      <span class="complete-xp" id="g2XP">+0 XP</span>
+    </div>
+    <div class="principle-card">
+      <p class="pc-game">G02 — Similarity Match</p>
+      <p class="pc-principle">Similarity</p>
+      <ul class="pc-rules">
+        <li>Related items share visual traits</li>
+        <li>Inconsistency implies difference</li>
+        <li>Visual systems create trust</li>
+      </ul>
+      <p class="pc-score" id="g2PcScore">Score: 0</p>
+      <span class="pc-stamp">EARNED</span>
+    </div>
+    <button class="return-btn" id="g2Return">RETURN TO DASHBOARD</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     G3 — CLOSURE CHAMBER
+     ============================================================ -->
+<section class="game-page" id="g3ClosureChamber">
+
+  <div class="brief-screen" id="g3Brief">
+    <span class="game-number">G03</span>
+    <h1 class="brief-title">Closure</h1>
+    <p class="brief-def">The mind completes incomplete shapes automatically.</p>
+    <p class="brief-tap">TAP TO BEGIN</p>
+  </div>
+
+  <header class="challenge-header" id="g3Header" style="display:none;">
+    <span class="game-label">Closure Chamber</span>
+    <span class="challenge-counter" id="g3Counter">CHALLENGE 01 / 10</span>
+    <div class="header-right">
+      <span class="score-display" id="g3Score">0</span>
+      <div class="vera-orb" id="g3VeraOrb"></div>
+    </div>
+  </header>
+
+  <div class="challenge-arena" id="g3Arena" style="display:none;">
+    <aside class="theory-panel" id="g3Theory">
+      <button class="theory-toggle" id="g3TheoryToggle"><span class="toggle-icon">◀</span></button>
+      <div class="theory-content">
+        <p class="theory-label">THE PRINCIPLE</p>
+        <p class="theory-text" id="g3TheoryText">
+          Closure is the brain's tendency to fill in missing information to perceive a complete, familiar shape. Even partial forms trigger recognition.
+        </p>
+        <div class="eraser-controls" id="g3EraserControls" style="display:none;">
+          <p class="slider-section-label">ERASER SIZE</p>
+          <div class="eraser-btns">
+            <button class="eraser-btn active" data-size="10" id="g3EraserS">S</button>
+            <button class="eraser-btn" data-size="20" id="g3EraserM">M</button>
+            <button class="eraser-btn" data-size="35" id="g3EraserL">L</button>
+          </div>
+          <button class="reset-btn" id="g3Reset">RESET</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="arena-center">
+      <!-- Mode A: Recognition -->
+      <div id="g3ModeA">
+        <p class="mode-instruction" id="g3Instruction">Will the brain complete this shape?</p>
+        <div class="closure-display" id="g3Display"></div>
+        <div class="yn-buttons">
+          <button class="yn-btn yes" id="g3Yes">YES</button>
+          <button class="yn-btn no" id="g3No">NO</button>
+        </div>
+      </div>
+      <!-- Mode B: Eraser -->
+      <div id="g3ModeB" style="display:none;">
+        <p class="mode-instruction">Erase as much as possible — keep it recognisable.</p>
+        <div class="canvas-pair">
+          <div class="canvas-wrap">
+            <p class="canvas-label">ORIGINAL</p>
+            <canvas id="g3OrigCanvas" width="200" height="200"></canvas>
+          </div>
+          <div class="canvas-wrap">
+            <p class="canvas-label">YOUR VERSION</p>
+            <canvas id="g3EraseCanvas" width="200" height="200"></canvas>
+          </div>
+        </div>
+        <div class="recognition-meter">
+          <span class="rec-label">RECOGNITION</span>
+          <div class="rec-bar-wrap">
+            <div class="rec-bar" id="g3RecBar" style="width:100%"></div>
+          </div>
+          <span class="rec-val" id="g3RecVal">100%</span>
+        </div>
+        <button class="sim-submit-btn" id="g3SubmitErase">SUBMIT</button>
+      </div>
+    </main>
+
+    <aside class="metrics-panel">
+      <div class="metric-row">
+        <span class="metric-label">SCORE</span>
+        <span class="metric-val" id="g3ScoreRight">0</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">ATTEMPT</span>
+        <span class="metric-val" id="g3Attempt">1</span>
+      </div>
+      <div class="vera-commentary" id="g3VeraComment">—</div>
+    </aside>
+  </div>
+
+  <div class="debrief-overlay" id="g3Debrief" style="display:none;">
+    <div class="debrief-inner">
+      <div class="debrief-green" id="g3DebriefGood"></div>
+      <div class="debrief-red" id="g3DebriefMiss"></div>
+      <p class="debrief-principle">Closure activates at ~60% visible — the brain fills the rest.</p>
+      <button class="next-btn" id="g3Next">NEXT CHALLENGE →</button>
+    </div>
+  </div>
+
+  <div class="game-complete" id="g3Complete" style="display:none;">
+    <div class="complete-score-wrap">
+      <span class="complete-score" id="g3FinalScore">0</span>
+      <span class="complete-xp" id="g3XP">+0 XP</span>
+    </div>
+    <div class="principle-card">
+      <p class="pc-game">G03 — Closure Chamber</p>
+      <p class="pc-principle">Closure</p>
+      <ul class="pc-rules">
+        <li>Brain completes familiar forms</li>
+        <li>~60% visible is enough to recognise</li>
+        <li>Implied shapes reduce visual noise</li>
+      </ul>
+      <p class="pc-score" id="g3PcScore">Score: 0</p>
+      <span class="pc-stamp">EARNED</span>
+    </div>
+    <button class="return-btn" id="g3Return">RETURN TO DASHBOARD</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     G4 — FIGURE GROUND ARENA
+     ============================================================ -->
+<section class="game-page" id="g4FigureGround">
+
+  <div class="brief-screen" id="g4Brief">
+    <span class="game-number">G04</span>
+    <h1 class="brief-title">Figure / Ground</h1>
+    <p class="brief-def">The eye separates foreground from background.</p>
+    <p class="brief-tap">TAP TO BEGIN</p>
+  </div>
+
+  <header class="challenge-header" id="g4Header" style="display:none;">
+    <span class="game-label">Figure Ground Arena</span>
+    <span class="challenge-counter" id="g4Counter">CHALLENGE 01 / 10</span>
+    <div class="header-right">
+      <span class="score-display" id="g4Score">0</span>
+      <div class="vera-orb" id="g4VeraOrb"></div>
+    </div>
+  </header>
+
+  <div class="challenge-arena" id="g4Arena" style="display:none;">
+    <aside class="theory-panel" id="g4Theory">
+      <button class="theory-toggle" id="g4TheoryToggle"><span class="toggle-icon">◀</span></button>
+      <div class="theory-content">
+        <p class="theory-label">THE PRINCIPLE</p>
+        <p class="theory-text" id="g4TheoryText">
+          Figure/Ground is the perceptual tendency to separate elements into a dominant subject (figure) and a receding backdrop (ground). High contrast edges define the boundary.
+        </p>
+        <div class="paint-controls">
+          <p class="slider-section-label">PAINT MODE</p>
+          <div class="paint-mode-btns">
+            <button class="paint-btn active" id="g4FigureBtn" data-mode="figure">FIGURE (F)</button>
+            <button class="paint-btn" id="g4GroundBtn" data-mode="ground">GROUND (G)</button>
+          </div>
+          <p class="slider-section-label" style="margin-top:12px;">BRUSH SIZE</p>
+          <div class="eraser-btns">
+            <button class="eraser-btn active" data-size="15" id="g4BrushS">S</button>
+            <button class="eraser-btn" data-size="30" id="g4BrushM">M</button>
+            <button class="eraser-btn" data-size="50" id="g4BrushL">L</button>
+          </div>
+          <button class="reset-btn" id="g4Clear" style="margin-top:12px;">CLEAR ALL</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="arena-center">
+      <p class="mode-instruction">Paint FIGURE (foreground) and GROUND (background) regions.</p>
+      <div class="fg-canvas-wrap">
+        <canvas id="g4SceneCanvas"></canvas>
+        <canvas id="g4PaintCanvas" style="position:absolute;top:0;left:0;"></canvas>
+      </div>
+      <button class="sim-submit-btn" id="g4Submit" style="margin-top:16px;">SUBMIT</button>
+    </main>
+
+    <aside class="metrics-panel">
+      <div class="metric-row">
+        <span class="metric-label">SCORE</span>
+        <span class="metric-val" id="g4ScoreRight">0</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">ATTEMPT</span>
+        <span class="metric-val" id="g4Attempt">1</span>
+      </div>
+      <div class="vera-commentary" id="g4VeraComment">—</div>
+    </aside>
+  </div>
+
+  <div class="debrief-overlay" id="g4Debrief" style="display:none;">
+    <div class="debrief-inner">
+      <div class="debrief-green" id="g4DebriefGood"></div>
+      <div class="debrief-red" id="g4DebriefMiss"></div>
+      <p class="debrief-principle">High contrast edges define figure — the eye follows the boundary.</p>
+      <button class="next-btn" id="g4Next">NEXT CHALLENGE →</button>
+    </div>
+  </div>
+
+  <div class="game-complete" id="g4Complete" style="display:none;">
+    <div class="complete-score-wrap">
+      <span class="complete-score" id="g4FinalScore">0</span>
+      <span class="complete-xp" id="g4XP">+0 XP</span>
+    </div>
+    <div class="principle-card">
+      <p class="pc-game">G04 — Figure Ground Arena</p>
+      <p class="pc-principle">Figure / Ground</p>
+      <ul class="pc-rules">
+        <li>Contrast defines the boundary</li>
+        <li>Figure is dominant, ground recedes</li>
+        <li>Ambiguity can be intentional</li>
+      </ul>
+      <p class="pc-score" id="g4PcScore">Score: 0</p>
+      <span class="pc-stamp">EARNED</span>
+    </div>
+    <button class="return-btn" id="g4Return">RETURN TO DASHBOARD</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     G5 — CONTINUITY RIVER
+     ============================================================ -->
+<section class="game-page" id="g5ContinuityRiver">
+
+  <div class="brief-screen" id="g5Brief">
+    <span class="game-number">G05</span>
+    <h1 class="brief-title">Continuity</h1>
+    <p class="brief-def">The eye follows implied lines and curves.</p>
+    <p class="brief-tap">TAP TO BEGIN</p>
+  </div>
+
+  <header class="challenge-header" id="g5Header" style="display:none;">
+    <span class="game-label">Continuity River</span>
+    <span class="challenge-counter" id="g5Counter">CHALLENGE 01 / 10</span>
+    <div class="header-right">
+      <span class="score-display" id="g5Score">0</span>
+      <div class="vera-orb" id="g5VeraOrb"></div>
+    </div>
+  </header>
+
+  <div class="challenge-arena" id="g5Arena" style="display:none;">
+    <aside class="theory-panel" id="g5Theory">
+      <button class="theory-toggle" id="g5TheoryToggle"><span class="toggle-icon">◀</span></button>
+      <div class="theory-content">
+        <p class="theory-label">THE PRINCIPLE</p>
+        <p class="theory-text" id="g5TheoryText">
+          Continuity describes how the eye prefers to follow smooth, continuous paths rather than abrupt changes in direction. Good layouts guide the eye naturally.
+        </p>
+        <div class="bezier-help">
+          <p class="slider-section-label">TOOL GUIDE</p>
+          <p class="theory-text" style="font-size:11px;">Click to place points. Drag between points to curve. Backspace removes last point.</p>
+          <button class="reset-btn" id="g5ClearPath">CLEAR PATH</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="arena-center">
+      <p class="mode-instruction">Draw the eye-flow path through this layout.</p>
+      <div class="cont-canvas-wrap">
+        <div class="cont-layout" id="g5Layout"></div>
+        <svg id="g5PathSvg" style="position:absolute;top:0;left:0;pointer-events:none;"></svg>
+        <svg id="g5DrawSvg" style="position:absolute;top:0;left:0;"></svg>
+      </div>
+      <div class="cont-controls">
+        <button class="sim-submit-btn" id="g5Submit">SUBMIT PATH</button>
+        <div class="replay-wrap" id="g5Replay" style="display:none;">
+          <span class="replay-label">EXPERT</span>
+          <div class="replay-dot expert-dot" id="g5ExpertDot"></div>
+          <span class="replay-label" style="margin-left:16px;">YOU</span>
+          <div class="replay-dot user-dot" id="g5UserDot"></div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="metrics-panel">
+      <div class="metric-row">
+        <span class="metric-label">SCORE</span>
+        <span class="metric-val" id="g5ScoreRight">0</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">OVERLAP</span>
+        <span class="metric-val" id="g5Overlap">0%</span>
+      </div>
+      <div class="vera-commentary" id="g5VeraComment">—</div>
+    </aside>
+  </div>
+
+  <div class="debrief-overlay" id="g5Debrief" style="display:none;">
+    <div class="debrief-inner">
+      <div class="debrief-green" id="g5DebriefGood"></div>
+      <div class="debrief-red" id="g5DebriefMiss"></div>
+      <p class="debrief-principle">Continuity guides the eye — smooth paths reduce cognitive effort.</p>
+      <button class="next-btn" id="g5Next">NEXT CHALLENGE →</button>
+    </div>
+  </div>
+
+  <div class="game-complete" id="g5Complete" style="display:none;">
+    <div class="complete-score-wrap">
+      <span class="complete-score" id="g5FinalScore">0</span>
+      <span class="complete-xp" id="g5XP">+0 XP</span>
+    </div>
+    <div class="principle-card">
+      <p class="pc-game">G05 — Continuity River</p>
+      <p class="pc-principle">Continuity</p>
+      <ul class="pc-rules">
+        <li>Eye follows smooth implied paths</li>
+        <li>Abrupt breaks disrupt flow</li>
+        <li>Layout hierarchy creates direction</li>
+      </ul>
+      <p class="pc-score" id="g5PcScore">Score: 0</p>
+      <span class="pc-stamp">EARNED</span>
+    </div>
+    <button class="return-btn" id="g5Return">RETURN TO DASHBOARD</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     G6 — LOAD REDUCER
+     ============================================================ -->
+<section class="game-page" id="g6LoadReducer">
+  <div class="brief-screen" id="g6Brief">
+    <span class="game-number">G06</span>
+    <h1 class="brief-title">Cognitive Load</h1>
+    <p class="brief-def">Working memory holds ~4 chunks. Overloaded interfaces cause abandonment.</p>
+    <p class="brief-tap">TAP TO BEGIN</p>
+  </div>
+
+  <header class="challenge-header" id="g6Header" style="display:none;">
+    <span class="game-label">Load Reducer</span>
+    <span class="challenge-counter" id="g6Counter">CHALLENGE 01 / 10</span>
+    <div class="header-right">
+      <span class="score-display" id="g6Score">0</span>
+      <div class="vera-orb" id="g6VeraOrb"></div>
+    </div>
+  </header>
+
+  <div class="challenge-arena" id="g6Arena" style="display:none;">
+    <aside class="theory-panel" id="g6Theory">
+      <button class="theory-toggle" id="g6TheoryToggle"><span class="toggle-icon">◀</span></button>
+      <div class="theory-content">
+        <p class="theory-label">THE PRINCIPLE</p>
+        <p class="theory-text" id="g6TheoryText">Cognitive load is the mental effort required to use an interface. Every element costs working memory. Reduce cost below the target budget without breaking functionality.</p>
+        <div class="budget-legend">
+          <p class="slider-section-label">ELEMENT COSTS</p>
+          <div class="cost-row"><span class="cost-dot" style="background:#4ADE80"></span><span>Primary action — 5pts</span></div>
+          <div class="cost-row"><span class="cost-dot" style="background:#F59E0B"></span><span>Secondary btn — 8pts</span></div>
+          <div class="cost-row"><span class="cost-dot" style="background:#EF4444"></span><span>Animation — 15pts</span></div>
+          <div class="cost-row"><span class="cost-dot" style="background:#888"></span><span>Decoration — 12pts</span></div>
+          <div class="cost-row"><span class="cost-dot" style="background:#6366F1"></span><span>Nav item — 7pts</span></div>
+        </div>
+        <button class="sim-submit-btn" id="g6FuncCheck" style="margin-top:16px;width:100%;">FUNCTIONALITY CHECK</button>
+      </div>
+    </aside>
+
+    <main class="arena-center" style="flex-direction:row;gap:0;padding:0;">
+      <!-- Budget meter -->
+      <div class="budget-meter-wrap">
+        <div class="budget-meter-track">
+          <div class="budget-meter-fill" id="g6BudgetFill"></div>
+          <div class="budget-zone red-zone"></div>
+          <div class="budget-zone amber-zone"></div>
+          <div class="budget-zone green-zone"></div>
+        </div>
+        <span class="budget-val" id="g6BudgetVal">100</span>
+        <span class="budget-target" id="g6BudgetTarget">TARGET: 40</span>
+      </div>
+      <!-- UI canvas -->
+      <div class="load-canvas" id="g6Canvas"></div>
+    </main>
+
+    <aside class="metrics-panel">
+      <div class="metric-row">
+        <span class="metric-label">SCORE</span>
+        <span class="metric-val" id="g6ScoreRight">0</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">BUDGET</span>
+        <span class="metric-val" id="g6BudgetRight">100</span>
+      </div>
+      <div class="vera-commentary" id="g6VeraComment">—</div>
+    </aside>
+  </div>
+
+  <div class="debrief-overlay" id="g6Debrief" style="display:none;">
+    <div class="debrief-inner">
+      <div class="debrief-green" id="g6DebriefGood"></div>
+      <div class="debrief-red" id="g6DebriefMiss"></div>
+      <p class="debrief-principle">Every element costs attention — ruthless reduction is good design.</p>
+      <button class="next-btn" id="g6Next">NEXT CHALLENGE →</button>
+    </div>
+  </div>
+
+  <div class="game-complete" id="g6Complete" style="display:none;">
+    <div class="complete-score-wrap">
+      <span class="complete-score" id="g6FinalScore">0</span>
+      <span class="complete-xp" id="g6XP">+0 XP</span>
+    </div>
+    <div class="principle-card">
+      <p class="pc-game">G06 — Load Reducer</p>
+      <p class="pc-principle">Cognitive Load</p>
+      <ul class="pc-rules">
+        <li>Every element costs working memory</li>
+        <li>Remove, combine, or hide excess</li>
+        <li>Budget ruthlessly — keep only what matters</li>
+      </ul>
+      <p class="pc-score" id="g6PcScore">Score: 0</p>
+      <span class="pc-stamp">EARNED</span>
+    </div>
+    <button class="return-btn" id="g6Return">RETURN TO DASHBOARD</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     G7 — MENTAL MODEL MAPPER
+     ============================================================ -->
+<section class="game-page" id="g7MentalModel">
+  <div class="brief-screen" id="g7Brief">
+    <span class="game-number">G07</span>
+    <h1 class="brief-title">Mental Models</h1>
+    <p class="brief-def">Users bring expectations from prior experience. Design must match what they already know.</p>
+    <p class="brief-tap">TAP TO BEGIN</p>
+  </div>
+
+  <header class="challenge-header" id="g7Header" style="display:none;">
+    <span class="game-label">Mental Model Mapper</span>
+    <span class="challenge-counter" id="g7Counter">CHALLENGE 01 / 10</span>
+    <div class="header-right">
+      <span class="score-display" id="g7Score">0</span>
+      <div class="vera-orb" id="g7VeraOrb"></div>
+    </div>
+  </header>
+
+  <div class="challenge-arena" id="g7Arena" style="display:none;">
+    <aside class="theory-panel" id="g7Theory">
+      <button class="theory-toggle" id="g7TheoryToggle"><span class="toggle-icon">◀</span></button>
+      <div class="theory-content">
+        <p class="theory-label">THE PRINCIPLE</p>
+        <p class="theory-text" id="g7TheoryText">Mental models are internal representations of how something works. When UI matches the user's mental model, it feels intuitive. When it doesn't, confusion follows.</p>
+        <div class="mm-phase-indicator">
+          <p class="slider-section-label">CURRENT PHASE</p>
+          <p class="mm-phase-label" id="g7PhaseLabel">PHASE A — PREDICT</p>
+          <p class="theory-text" style="font-size:11px;" id="g7PhaseDesc">Click where you think each function lives.</p>
+        </div>
+        <div class="metric-row" style="margin-top:16px;">
+          <span class="metric-label">MM SCORE</span>
+          <span class="metric-val" id="g7MMScore" style="font-size:20px;">0%</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="arena-center">
+      <p class="mode-instruction" id="g7Instruction">Click where you think SEARCH lives.</p>
+      <div class="mm-canvas-wrap">
+        <div class="mm-ui" id="g7UI"></div>
+        <div class="mm-pins" id="g7Pins"></div>
+      </div>
+      <div class="mm-controls">
+        <button class="sim-submit-btn" id="g7Submit">SUBMIT PREDICTIONS</button>
+        <button class="sim-submit-btn" id="g7SubmitRedesign" style="display:none;">SUBMIT REDESIGN</button>
+      </div>
+    </main>
+
+    <aside class="metrics-panel">
+      <div class="metric-row">
+        <span class="metric-label">SCORE</span>
+        <span class="metric-val" id="g7ScoreRight">0</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">ACCURACY</span>
+        <span class="metric-val" id="g7Accuracy">0%</span>
+      </div>
+      <div class="vera-commentary" id="g7VeraComment">—</div>
+    </aside>
+  </div>
+
+  <div class="debrief-overlay" id="g7Debrief" style="display:none;">
+    <div class="debrief-inner">
+      <div class="debrief-green" id="g7DebriefGood"></div>
+      <div class="debrief-red" id="g7DebriefMiss"></div>
+      <p class="debrief-principle">Design that matches mental models feels invisible — that's the goal.</p>
+      <button class="next-btn" id="g7Next">NEXT CHALLENGE →</button>
+    </div>
+  </div>
+
+  <div class="game-complete" id="g7Complete" style="display:none;">
+    <div class="complete-score-wrap">
+      <span class="complete-score" id="g7FinalScore">0</span>
+      <span class="complete-xp" id="g7XP">+0 XP</span>
+    </div>
+    <div class="principle-card">
+      <p class="pc-game">G07 — Mental Model Mapper</p>
+      <p class="pc-principle">Mental Models</p>
+      <ul class="pc-rules">
+        <li>Users predict based on prior experience</li>
+        <li>Mismatched models cause friction</li>
+        <li>Align layout to expectation, not preference</li>
+      </ul>
+      <p class="pc-score" id="g7PcScore">Score: 0</p>
+      <span class="pc-stamp">EARNED</span>
+    </div>
+    <button class="return-btn" id="g7Return">RETURN TO DASHBOARD</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     G8 — HICK'S LAW DUEL
+     ============================================================ -->
+<section class="game-page" id="g8HicksLaw">
+  <div class="brief-screen" id="g8Brief">
+    <span class="game-number">G08</span>
+    <h1 class="brief-title">Hick's Law</h1>
+    <p class="brief-def">Decision time = log₂(n+1). More choices means longer decisions.</p>
+    <p class="brief-tap">TAP TO BEGIN</p>
+  </div>
+
+  <header class="challenge-header" id="g8Header" style="display:none;">
+    <span class="game-label">Hick's Law Duel</span>
+    <span class="challenge-counter" id="g8Counter">CHALLENGE 01 / 10</span>
+    <div class="header-right">
+      <span class="score-display" id="g8Score">0</span>
+      <div class="vera-orb" id="g8VeraOrb"></div>
+    </div>
+  </header>
+
+  <div class="challenge-arena" id="g8Arena" style="display:none;">
+    <aside class="theory-panel" id="g8Theory">
+      <button class="theory-toggle" id="g8TheoryToggle"><span class="toggle-icon">◀</span></button>
+      <div class="theory-content">
+        <p class="theory-label">THE PRINCIPLE</p>
+        <p class="theory-text" id="g8TheoryText">Hick's Law: T = b × log₂(n+1). The time to make a decision grows logarithmically with the number of choices. Fewer, well-grouped options reduce decision time.</p>
+        <div class="hicks-formula-panel">
+          <p class="slider-section-label">LIVE FORMULA</p>
+          <p class="hicks-formula" id="g8Formula">T = 0.166 × log₂(2) = 0.17s</p>
+          <p class="hicks-time" id="g8Time" style="color:#4ADE80;">0.17s</p>
+        </div>
+        <div style="margin-top:16px;">
+          <p class="slider-section-label">ADD ITEM</p>
+          <input type="text" class="hicks-input" id="g8ItemInput" placeholder="Item label…">
+          <button class="sim-submit-btn" id="g8AddItem" style="margin-top:8px;width:100%;">+ ADD</button>
+        </div>
+        <button class="reset-btn" id="g8ClearItems" style="margin-top:8px;">CLEAR ALL</button>
+      </div>
+    </aside>
+
+    <main class="arena-center">
+      <div class="hicks-header-bar">
+        <span class="hicks-scenario" id="g8Scenario">Design a restaurant menu</span>
+        <span class="hicks-target">TARGET: <span id="g8Target">0.6s</span></span>
+      </div>
+      <div class="hicks-nav-preview" id="g8NavPreview"></div>
+      <div class="hicks-duel" id="g8Duel" style="display:none;">
+        <div class="duel-col">
+          <p class="duel-label">YOUR DESIGN</p>
+          <div class="duel-nav" id="g8UserNav"></div>
+          <p class="duel-time" id="g8UserTime">—</p>
+        </div>
+        <div class="duel-col">
+          <p class="duel-label">OPTIMAL</p>
+          <div class="duel-nav" id="g8OptimalNav"></div>
+          <p class="duel-time" id="g8OptimalTime">—</p>
+        </div>
+      </div>
+      <button class="sim-submit-btn" id="g8Submit" style="margin-top:16px;">SUBMIT DESIGN</button>
+    </main>
+
+    <aside class="metrics-panel">
+      <div class="metric-row">
+        <span class="metric-label">SCORE</span>
+        <span class="metric-val" id="g8ScoreRight">0</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">ITEMS</span>
+        <span class="metric-val" id="g8ItemCount">1</span>
+      </div>
+      <div class="vera-commentary" id="g8VeraComment">—</div>
+    </aside>
+  </div>
+
+  <div class="debrief-overlay" id="g8Debrief" style="display:none;">
+    <div class="debrief-inner">
+      <div class="debrief-green" id="g8DebriefGood"></div>
+      <div class="debrief-red" id="g8DebriefMiss"></div>
+      <p class="debrief-principle">Fewer choices, faster decisions — Hick's Law is always watching.</p>
+      <button class="next-btn" id="g8Next">NEXT CHALLENGE →</button>
+    </div>
+  </div>
+
+  <div class="game-complete" id="g8Complete" style="display:none;">
+    <div class="complete-score-wrap">
+      <span class="complete-score" id="g8FinalScore">0</span>
+      <span class="complete-xp" id="g8XP">+0 XP</span>
+    </div>
+    <div class="principle-card">
+      <p class="pc-game">G08 — Hick's Law Duel</p>
+      <p class="pc-principle">Hick's Law</p>
+      <ul class="pc-rules">
+        <li>T = b × log₂(n+1)</li>
+        <li>Group items to reduce top-level count</li>
+        <li>Every extra choice has a time cost</li>
+      </ul>
+      <p class="pc-score" id="g8PcScore">Score: 0</p>
+      <span class="pc-stamp">EARNED</span>
+    </div>
+    <button class="return-btn" id="g8Return">RETURN TO DASHBOARD</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     G9 — FITTS LAW FORGE
+     ============================================================ -->
+<section class="game-page" id="g9FittsLaw">
+  <div class="brief-screen" id="g9Brief">
+    <span class="game-number">G09</span>
+    <h1 class="brief-title">Fitts's Law</h1>
+    <p class="brief-def">Acquisition time = a + b × log₂(2D/W). Closer and larger targets are faster.</p>
+    <p class="brief-tap">TAP TO BEGIN</p>
+  </div>
+
+  <header class="challenge-header" id="g9Header" style="display:none;">
+    <span class="game-label">Fitts's Law Forge</span>
+    <span class="challenge-counter" id="g9Counter">CHALLENGE 01 / 10</span>
+    <div class="header-right">
+      <span class="score-display" id="g9Score">0</span>
+      <div class="vera-orb" id="g9VeraOrb"></div>
+    </div>
+  </header>
+
+  <div class="challenge-arena" id="g9Arena" style="display:none;">
+    <aside class="theory-panel" id="g9Theory">
+      <button class="theory-toggle" id="g9TheoryToggle"><span class="toggle-icon">◀</span></button>
+      <div class="theory-content">
+        <p class="theory-label">THE PRINCIPLE</p>
+        <p class="theory-text" id="g9TheoryText">Fitts's Law: T = a + b × log₂(2D/W). Distance (D) and target width (W) determine acquisition time. Minimise distance, maximise target size.</p>
+        <div style="margin-top:16px;">
+          <p class="slider-section-label">ADD ELEMENT</p>
+          <select class="hicks-input" id="g9ElementType" style="width:100%;margin-bottom:8px;">
+            <option value="button">Button</option>
+            <option value="input">Input Field</option>
+            <option value="link">Link</option>
+          </select>
+          <input type="text" class="hicks-input" id="g9ElementLabel" placeholder="Label…" style="margin-bottom:8px;">
+          <button class="sim-submit-btn" id="g9AddElement" style="width:100%;">+ PLACE</button>
+        </div>
+        <button class="sim-submit-btn" id="g9Simulate" style="margin-top:8px;width:100%;background:#1A1A1A;border:1px solid #2A2A2A;">▶ SIMULATE</button>
+        <button class="reset-btn" id="g9ClearAll">CLEAR ALL</button>
+      </div>
+    </aside>
+
+    <main class="arena-center">
+      <div class="fitts-header-bar">
+        <span class="hicks-scenario" id="g9Scenario">Place elements for: Search → Select → Confirm</span>
+        <span class="hicks-target">AVG TIME: <span id="g9AvgTime">—</span></span>
+      </div>
+      <div class="fitts-canvas-wrap">
+        <div class="fitts-canvas" id="g9Canvas"></div>
+      </div>
+      <button class="sim-submit-btn" id="g9Submit" style="margin-top:12px;">SUBMIT LAYOUT</button>
+    </main>
+
+    <aside class="metrics-panel">
+      <div class="metric-row">
+        <span class="metric-label">SCORE</span>
+        <span class="metric-val" id="g9ScoreRight">0</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">AVG T</span>
+        <span class="metric-val" id="g9AvgRight" style="font-size:18px;">—</span>
+      </div>
+      <div class="vera-commentary" id="g9VeraComment">—</div>
+    </aside>
+  </div>
+
+  <div class="debrief-overlay" id="g9Debrief" style="display:none;">
+    <div class="debrief-inner">
+      <div class="debrief-green" id="g9DebriefGood"></div>
+      <div class="debrief-red" id="g9DebriefMiss"></div>
+      <p class="debrief-principle">Large targets, short distances — Fitts's Law rewards proximity and size.</p>
+      <button class="next-btn" id="g9Next">NEXT CHALLENGE →</button>
+    </div>
+  </div>
+
+  <div class="game-complete" id="g9Complete" style="display:none;">
+    <div class="complete-score-wrap">
+      <span class="complete-score" id="g9FinalScore">0</span>
+      <span class="complete-xp" id="g9XP">+0 XP</span>
+    </div>
+    <div class="principle-card">
+      <p class="pc-game">G09 — Fitts's Law Forge</p>
+      <p class="pc-principle">Fitts's Law</p>
+      <ul class="pc-rules">
+        <li>Larger targets are faster to acquire</li>
+        <li>Shorter distances reduce acquisition time</li>
+        <li>44×44px minimum for touch targets</li>
+      </ul>
+      <p class="pc-score" id="g9PcScore">Score: 0</p>
+      <span class="pc-stamp">EARNED</span>
+    </div>
+    <button class="return-btn" id="g9Return">RETURN TO DASHBOARD</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     G10 — MILLER'S VAULT
+     ============================================================ -->
+<section class="game-page" id="g10MillersVault">
+  <div class="brief-screen" id="g10Brief">
+    <span class="game-number">G10</span>
+    <h1 class="brief-title">Miller's Law</h1>
+    <p class="brief-def">Working memory holds 7 ± 2 items. Chunk information to respect cognitive limits.</p>
+    <p class="brief-tap">TAP TO BEGIN</p>
+  </div>
+
+  <header class="challenge-header" id="g10Header" style="display:none;">
+    <span class="game-label">Miller's Vault</span>
+    <span class="challenge-counter" id="g10Counter">CHALLENGE 01 / 10</span>
+    <div class="header-right">
+      <span class="score-display" id="g10Score">0</span>
+      <div class="vera-orb" id="g10VeraOrb"></div>
+    </div>
+  </header>
+
+  <div class="challenge-arena" id="g10Arena" style="display:none;">
+    <aside class="theory-panel" id="g10Theory">
+      <button class="theory-toggle" id="g10TheoryToggle"><span class="toggle-icon">◀</span></button>
+      <div class="theory-content">
+        <p class="theory-label">THE PRINCIPLE</p>
+        <p class="theory-text" id="g10TheoryText">Miller's Law: working memory holds 7 ± 2 items. Chunking — grouping related items — lets users process more by treating each group as a single unit.</p>
+        <div style="margin-top:16px;">
+          <p class="slider-section-label">CURRENT PHASE</p>
+          <p class="mm-phase-label" id="g10PhaseLabel">PHASE 1 — DIAGNOSE</p>
+          <p class="theory-text" style="font-size:11px;" id="g10PhaseDesc">Click items that violate Miller's 7±2 rule.</p>
+        </div>
+        <div class="metric-row" style="margin-top:16px;">
+          <span class="metric-label">VIOLATIONS</span>
+          <span class="metric-val" id="g10Violations" style="font-size:20px;">0</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="arena-center">
+      <p class="mode-instruction" id="g10Instruction">Identify areas that violate Miller's 7±2 rule.</p>
+      <!-- Phase 1: Diagnose -->
+      <div id="g10Phase1">
+        <div class="miller-items" id="g10Items"></div>
+        <button class="sim-submit-btn" id="g10SubmitDiagnose" style="margin-top:16px;">SUBMIT DIAGNOSIS</button>
+      </div>
+      <!-- Phase 2: Chunk -->
+      <div id="g10Phase2" style="display:none;">
+        <p class="mode-instruction">Lasso-select items to group them. Press Enter to confirm each group.</p>
+        <div class="miller-chunk-area" id="g10ChunkArea"></div>
+        <button class="sim-submit-btn" id="g10SubmitChunk">SUBMIT CHUNKS</button>
+      </div>
+      <!-- Phase 3: Recall -->
+      <div id="g10Phase3" style="display:none;">
+        <p class="mode-instruction">Reconstruct your groups from memory.</p>
+        <div class="miller-recall-area" id="g10RecallArea"></div>
+        <button class="sim-submit-btn" id="g10SubmitRecall">SUBMIT RECALL</button>
+      </div>
+    </main>
+
+    <aside class="metrics-panel">
+      <div class="metric-row">
+        <span class="metric-label">SCORE</span>
+        <span class="metric-val" id="g10ScoreRight">0</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">GROUPS</span>
+        <span class="metric-val" id="g10GroupCount">0</span>
+      </div>
+      <div class="vera-commentary" id="g10VeraComment">—</div>
+    </aside>
+  </div>
+
+  <div class="debrief-overlay" id="g10Debrief" style="display:none;">
+    <div class="debrief-inner">
+      <div class="debrief-green" id="g10DebriefGood"></div>
+      <div class="debrief-red" id="g10DebriefMiss"></div>
+      <p class="debrief-principle">Chunking turns a list into a system — memory follows structure.</p>
+      <button class="next-btn" id="g10Next">NEXT CHALLENGE →</button>
+    </div>
+  </div>
+
+  <div class="game-complete" id="g10Complete" style="display:none;">
+    <div class="complete-score-wrap">
+      <span class="complete-score" id="g10FinalScore">0</span>
+      <span class="complete-xp" id="g10XP">+0 XP</span>
+    </div>
+    <div class="principle-card">
+      <p class="pc-game">G10 — Miller's Vault</p>
+      <p class="pc-principle">Miller's Law</p>
+      <ul class="pc-rules">
+        <li>Working memory holds 7 ± 2 items</li>
+        <li>Chunking multiplies effective capacity</li>
+        <li>Meaningful labels make groups memorable</li>
+      </ul>
+      <p class="pc-score" id="g10PcScore">Score: 0</p>
+      <span class="pc-stamp">EARNED</span>
+    </div>
+    <button class="return-btn" id="g10Return">RETURN TO DASHBOARD</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     G11 — TYPE HIERARCHY SCULPTOR
+     ============================================================ -->
+<section class="game-page" id="g11TypeHierarchy">
+  <div class="brief-screen" id="g11Brief">
+    <span class="game-number">G11</span>
+    <h1 class="brief-title">Type Hierarchy</h1>
+    <p class="brief-def">Size, weight, spacing, and contrast create reading priority.</p>
+    <p class="brief-tap">TAP TO BEGIN</p>
+  </div>
+
+  <header class="challenge-header" id="g11Header" style="display:none;">
+    <span class="game-label">Type Hierarchy Sculptor</span>
+    <span class="challenge-counter" id="g11Counter">CHALLENGE 01 / 10</span>
+    <div class="header-right">
+      <span class="score-display" id="g11Score">0</span>
+      <div class="vera-orb" id="g11VeraOrb"></div>
+    </div>
+  </header>
+
+  <div class="challenge-arena" id="g11Arena" style="display:none;">
+    <aside class="theory-panel" id="g11Theory">
+      <button class="theory-toggle" id="g11TheoryToggle"><span class="toggle-icon">◀</span></button>
+      <div class="theory-content">
+        <p class="theory-label">ROLE + PROPERTIES</p>
+        <p class="theory-text">Assign roles and tune typography to create obvious information architecture.</p>
+        <label class="slider-label">ROLE</label>
+        <select class="hicks-input" id="g11RoleSelect">
+          <option>H1</option><option>H2</option><option>H3</option><option>BODY</option>
+          <option>CAPTION</option><option>LABEL</option><option>BUTTON TEXT</option><option>METADATA</option>
+        </select>
+        <label class="slider-label">FONT SIZE <span id="g11SizeVal">24px</span></label>
+        <input type="range" class="g-slider" id="g11Size" min="12" max="96" value="24">
+        <label class="slider-label">FONT WEIGHT <span id="g11WeightVal">500</span></label>
+        <input type="range" class="g-slider" id="g11Weight" min="300" max="800" step="100" value="500">
+        <label class="slider-label">LINE HEIGHT <span id="g11LineVal">1.4</span></label>
+        <input type="range" class="g-slider" id="g11Line" min="1" max="2" step="0.05" value="1.4">
+        <label class="slider-label">LETTER SPACING <span id="g11TrackVal">0em</span></label>
+        <input type="range" class="g-slider" id="g11Track" min="-0.05" max="0.2" step="0.01" value="0">
+        <label class="slider-label">COLOR</label>
+        <input type="color" id="g11Color" value="#E0E0FF" style="width:100%;height:30px;background:#111;border:1px solid #2A2A2A;">
+      </div>
+    </aside>
+
+    <main class="arena-center">
+      <div class="hicks-header-bar">
+        <span class="hicks-scenario" id="g11Scenario">Unstyled article wall</span>
+        <button class="sim-submit-btn" id="g11Submit">SUBMIT HIERARCHY</button>
+      </div>
+      <div class="th-wall" id="g11Wall"></div>
+    </main>
+
+    <aside class="metrics-panel">
+      <div class="metric-row"><span class="metric-label">HIERARCHY SCORE</span><span class="metric-val" id="g11HScore">0%</span></div>
+      <div class="metric-row"><span class="metric-label">READABILITY</span><span class="metric-val" id="g11Readability" style="font-size:16px;">--</span></div>
+      <div class="metric-row"><span class="metric-label">EYE FLOW</span><span class="metric-val" id="g11EyeFlow" style="font-size:16px;">--</span></div>
+      <div class="vera-commentary" id="g11VeraComment">—</div>
+    </aside>
+  </div>
+
+  <div class="debrief-overlay" id="g11Debrief" style="display:none;">
+    <div class="debrief-inner">
+      <div class="debrief-green" id="g11DebriefGood"></div>
+      <div class="debrief-red" id="g11DebriefMiss"></div>
+      <p class="debrief-principle">Hierarchy should be visible before text is legible.</p>
+      <button class="next-btn" id="g11Next">NEXT CHALLENGE →</button>
+    </div>
+  </div>
+
+  <div class="game-complete" id="g11Complete" style="display:none;">
+    <div class="complete-score-wrap"><span class="complete-score" id="g11FinalScore">0</span><span class="complete-xp" id="g11XP">+0 XP</span></div>
+    <div class="principle-card">
+      <p class="pc-game">G11 — Type Hierarchy Sculptor</p>
+      <p class="pc-principle">Type Hierarchy</p>
+      <ul class="pc-rules"><li>Clear role contrast improves scanability</li><li>Consistent role treatment builds trust</li><li>Ratios define reading order</li></ul>
+      <p class="pc-score" id="g11PcScore">Score: 0</p><span class="pc-stamp">EARNED</span>
+    </div>
+    <button class="return-btn" id="g11Return">RETURN TO DASHBOARD</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     G12 — RHYTHM & BASELINE
+     ============================================================ -->
+<section class="game-page" id="g12RhythmBaseline">
+  <div class="brief-screen" id="g12Brief">
+    <span class="game-number">G12</span>
+    <h1 class="brief-title">Vertical Rhythm</h1>
+    <p class="brief-def">Baseline alignment creates harmony and visual tempo.</p>
+    <p class="brief-tap">TAP TO BEGIN</p>
+  </div>
+
+  <header class="challenge-header" id="g12Header" style="display:none;">
+    <span class="game-label">Rhythm &amp; Baseline</span>
+    <span class="challenge-counter" id="g12Counter">CHALLENGE 01 / 10</span>
+    <div class="header-right"><span class="score-display" id="g12Score">0</span><div class="vera-orb" id="g12VeraOrb"></div></div>
+  </header>
+
+  <div class="challenge-arena" id="g12Arena" style="display:none;">
+    <aside class="theory-panel" id="g12Theory">
+      <button class="theory-toggle" id="g12TheoryToggle"><span class="toggle-icon">◀</span></button>
+      <div class="theory-content">
+        <p class="theory-label">TOOLKIT</p>
+        <p class="theory-text">Drag items so baselines land exactly on grid lines. Snap is disabled.</p>
+        <button class="sim-submit-btn" id="g12Zoom" style="width:100%;margin-top:8px;">ZOOM ×4</button>
+        <button class="sim-submit-btn" id="g12Submit" style="width:100%;margin-top:8px;">SUBMIT ALIGNMENT</button>
+      </div>
+    </aside>
+
+    <main class="arena-center">
+      <div class="hicks-header-bar">
+        <span class="hicks-scenario" id="g12Scenario">Baseline 8px grid</span>
+        <span class="hicks-target">TOLERANCE: <span id="g12Tolerance">2px</span></span>
+      </div>
+      <div class="rhythm-canvas" id="g12Canvas"></div>
+    </main>
+
+    <aside class="metrics-panel">
+      <div class="metric-row"><span class="metric-label">AVG DEVIATION</span><span class="metric-val" id="g12Deviation">0px</span></div>
+      <div class="metric-row"><span class="metric-label">ALIGNED</span><span class="metric-val" id="g12Aligned" style="font-size:18px;">0/0</span></div>
+      <div class="vera-commentary" id="g12VeraComment">—</div>
+    </aside>
+  </div>
+
+  <div class="debrief-overlay" id="g12Debrief" style="display:none;"><div class="debrief-inner"><div class="debrief-green" id="g12DebriefGood"></div><div class="debrief-red" id="g12DebriefMiss"></div><p class="debrief-principle">Rhythm is precision repeated consistently.</p><button class="next-btn" id="g12Next">NEXT CHALLENGE →</button></div></div>
+  <div class="game-complete" id="g12Complete" style="display:none;"><div class="complete-score-wrap"><span class="complete-score" id="g12FinalScore">0</span><span class="complete-xp" id="g12XP">+0 XP</span></div><div class="principle-card"><p class="pc-game">G12 — Rhythm &amp; Baseline</p><p class="pc-principle">Vertical Rhythm</p><ul class="pc-rules"><li>Grid alignment improves polish</li><li>Small pixel errors accumulate fast</li><li>Rhythm guides scan patterns</li></ul><p class="pc-score" id="g12PcScore">Score: 0</p><span class="pc-stamp">EARNED</span></div><button class="return-btn" id="g12Return">RETURN TO DASHBOARD</button></div>
+</section>
+
+<!-- ============================================================
+     G13 — CONTRAST CALIBRATION LAB
+     ============================================================ -->
+<section class="game-page" id="g13ContrastCalibration">
+  <div class="brief-screen" id="g13Brief"><span class="game-number">G13</span><h1 class="brief-title">Contrast Ratios</h1><p class="brief-def">Calibrate foreground and background for WCAG-compliant readability.</p><p class="brief-tap">TAP TO BEGIN</p></div>
+  <header class="challenge-header" id="g13Header" style="display:none;"><span class="game-label">Contrast Calibration Lab</span><span class="challenge-counter" id="g13Counter">CHALLENGE 01 / 10</span><div class="header-right"><span class="score-display" id="g13Score">0</span><div class="vera-orb" id="g13VeraOrb"></div></div></header>
+
+  <div class="challenge-arena" id="g13Arena" style="display:none;">
+    <aside class="theory-panel" id="g13Theory"><button class="theory-toggle" id="g13TheoryToggle"><span class="toggle-icon">◀</span></button><div class="theory-content"><p class="theory-label">CALIBRATION CONTROLS</p>
+      <p class="slider-section-label">FOREGROUND</p><label class="slider-label">Hue <span id="g13FgHueVal">220</span></label><input class="g-slider" id="g13FgHue" type="range" min="0" max="360" value="220"><label class="slider-label">Sat <span id="g13FgSatVal">40%</span></label><input class="g-slider" id="g13FgSat" type="range" min="0" max="100" value="40"><label class="slider-label">Light <span id="g13FgLigVal">92%</span></label><input class="g-slider" id="g13FgLig" type="range" min="0" max="100" value="92"><label class="slider-label"><input type="checkbox" id="g13FgLock"> LOCK FG</label>
+      <p class="slider-section-label" style="margin-top:12px;">BACKGROUND</p><label class="slider-label">Hue <span id="g13BgHueVal">220</span></label><input class="g-slider" id="g13BgHue" type="range" min="0" max="360" value="220"><label class="slider-label">Sat <span id="g13BgSatVal">20%</span></label><input class="g-slider" id="g13BgSat" type="range" min="0" max="100" value="20"><label class="slider-label">Light <span id="g13BgLigVal">12%</span></label><input class="g-slider" id="g13BgLig" type="range" min="0" max="100" value="12"><label class="slider-label"><input type="checkbox" id="g13BgLock"> LOCK BG</label>
+      <button class="sim-submit-btn" id="g13BeforeAfter" style="width:100%;margin-top:8px;">BEFORE / AFTER</button>
+      <button class="sim-submit-btn" id="g13Submit" style="width:100%;margin-top:8px;">SUBMIT CALIBRATION</button>
+    </div></aside>
+
+    <main class="arena-center"><div class="contrast-preview" id="g13Preview"><p class="contrast-normal">Normal text 16px for AA normal check.</p><p class="contrast-large">Large text 24px for AA large check.</p><p class="contrast-bold">Bold text 18px for readability.</p></div></main>
+    <aside class="metrics-panel"><div class="metric-row"><span class="metric-label">RATIO</span><span class="metric-val" id="g13Ratio">--</span></div><div class="metric-row"><span class="metric-label">BADGES</span><span class="metric-val" id="g13Badges" style="font-size:13px;line-height:1.5;">--</span></div><div class="metric-row"><span class="metric-label">SIMULATION</span><select class="hicks-input" id="g13Blindness"><option value="none">None</option><option value="protanopia">Protanopia</option><option value="deuteranopia">Deuteranopia</option><option value="tritanopia">Tritanopia</option></select></div><div class="vera-commentary" id="g13VeraComment">—</div></aside>
+  </div>
+
+  <div class="debrief-overlay" id="g13Debrief" style="display:none;"><div class="debrief-inner"><div class="debrief-green" id="g13DebriefGood"></div><div class="debrief-red" id="g13DebriefMiss"></div><p class="debrief-principle">Lightness contrast usually carries readability more than hue.</p><button class="next-btn" id="g13Next">NEXT CHALLENGE →</button></div></div>
+  <div class="game-complete" id="g13Complete" style="display:none;"><div class="complete-score-wrap"><span class="complete-score" id="g13FinalScore">0</span><span class="complete-xp" id="g13XP">+0 XP</span></div><div class="principle-card"><p class="pc-game">G13 — Contrast Calibration Lab</p><p class="pc-principle">WCAG Contrast</p><ul class="pc-rules"><li>AA normal requires 4.5:1</li><li>AAA requires 7:1</li><li>Large text has lower threshold</li></ul><p class="pc-score" id="g13PcScore">Score: 0</p><span class="pc-stamp">EARNED</span></div><button class="return-btn" id="g13Return">RETURN TO DASHBOARD</button></div>
+</section>
+
+<!-- ============================================================
+     G14 — PALETTE ARCHITECT
+     ============================================================ -->
+<section class="game-page" id="g14PaletteArchitect">
+  <div class="brief-screen" id="g14Brief"><span class="game-number">G14</span><h1 class="brief-title">Palette Architect</h1><p class="brief-def">Build harmonized, accessible palettes from brand briefs.</p><p class="brief-tap">TAP TO BEGIN</p></div>
+  <header class="challenge-header" id="g14Header" style="display:none;"><span class="game-label">Palette Architect</span><span class="challenge-counter" id="g14Counter">CHALLENGE 01 / 10</span><div class="header-right"><span class="score-display" id="g14Score">0</span><div class="vera-orb" id="g14VeraOrb"></div></div></header>
+  <div class="challenge-arena" id="g14Arena" style="display:none;">
+    <aside class="theory-panel" id="g14Theory"><button class="theory-toggle" id="g14TheoryToggle"><span class="toggle-icon">◀</span></button><div class="theory-content"><p class="theory-label">BRIEF + WHEEL</p><p class="theory-text" id="g14BriefText">Brief: Trustworthy, Modern, Warm — FinTech — Young Professionals</p>
+      <label class="slider-label">Hue <span id="g14HueVal">220</span></label><input class="g-slider" id="g14Hue" type="range" min="0" max="360" value="220">
+      <label class="slider-label">Saturation <span id="g14SatVal">50%</span></label><input class="g-slider" id="g14Sat" type="range" min="0" max="100" value="50">
+      <label class="slider-label">Lightness <span id="g14LigVal">50%</span></label><input class="g-slider" id="g14Lig" type="range" min="0" max="100" value="50">
+      <select class="hicks-input" id="g14TargetSlot" style="margin-top:8px;"><option value="primary">PRIMARY</option><option value="secondary">SECONDARY</option><option value="neutral1">NEUTRAL 1</option><option value="neutral2">NEUTRAL 2</option><option value="neutral3">NEUTRAL 3</option><option value="neutral4">NEUTRAL 4</option><option value="neutral5">NEUTRAL 5</option><option value="success">SUCCESS</option><option value="warning">WARNING</option><option value="error">ERROR</option><option value="info">INFO</option></select>
+      <button class="sim-submit-btn" id="g14ApplyColor" style="width:100%;margin-top:8px;">APPLY TO SLOT</button>
+      <label class="slider-label" style="margin-top:8px;"><input type="checkbox" id="g14GuideComplementary"> Complementary</label>
+      <label class="slider-label"><input type="checkbox" id="g14GuideAnalogous"> Analogous</label>
+      <label class="slider-label"><input type="checkbox" id="g14GuideTriadic"> Triadic</label>
+      <button class="sim-submit-btn" id="g14Submit" style="width:100%;margin-top:8px;">SUBMIT PALETTE</button>
+    </div></aside>
+    <main class="arena-center"><div class="palette-wheel-wrap"><div class="palette-wheel" id="g14Wheel"></div><div class="palette-slots" id="g14Slots"></div></div><div class="contrast-preview" id="g14Preview"></div></main>
+    <aside class="metrics-panel"><div class="metric-row"><span class="metric-label">BRIEF MATCH</span><span class="metric-val" id="g14Match">0%</span></div><div class="metric-row"><span class="metric-label">HARMONY</span><span class="metric-val" id="g14Harmony">--</span></div><div class="metric-row"><span class="metric-label">MODE</span><select class="hicks-input" id="g14Mode"><option value="light">Light</option><option value="dark">Dark</option></select></div><div class="vera-commentary" id="g14VeraComment">—</div></aside>
+  </div>
+  <div class="debrief-overlay" id="g14Debrief" style="display:none;"><div class="debrief-inner"><div class="debrief-green" id="g14DebriefGood"></div><div class="debrief-red" id="g14DebriefMiss"></div><p class="debrief-principle">A useful palette balances mood and readability constraints.</p><button class="next-btn" id="g14Next">NEXT CHALLENGE →</button></div></div>
+  <div class="game-complete" id="g14Complete" style="display:none;"><div class="complete-score-wrap"><span class="complete-score" id="g14FinalScore">0</span><span class="complete-xp" id="g14XP">+0 XP</span></div><div class="principle-card"><p class="pc-game">G14 — Palette Architect</p><p class="pc-principle">Color Harmony</p><ul class="pc-rules"><li>Palette must fit brand intent</li><li>Semantic colors need function and contrast</li><li>Neutrals control tone</li></ul><p class="pc-score" id="g14PcScore">Score: 0</p><span class="pc-stamp">EARNED</span></div><button class="return-btn" id="g14Return">RETURN TO DASHBOARD</button></div>
+</section>
+
+<!-- ============================================================
+     G15 — ACCESSIBILITY AUDITOR
+     ============================================================ -->
+<section class="game-page" id="g15AccessibilityAuditor">
+  <div class="brief-screen" id="g15Brief"><span class="game-number">G15</span><h1 class="brief-title">Accessibility Audit</h1><p class="brief-def">Find, classify, and fix hidden accessibility failures.</p><p class="brief-tap">TAP TO BEGIN</p></div>
+  <header class="challenge-header" id="g15Header" style="display:none;"><span class="game-label">Accessibility Auditor</span><span class="challenge-counter" id="g15Counter">CHALLENGE 01 / 15</span><div class="header-right"><span class="score-display" id="g15Score">0</span><div class="vera-orb" id="g15VeraOrb"></div></div></header>
+  <div class="challenge-arena" id="g15Arena" style="display:none;">
+    <aside class="theory-panel" id="g15Theory"><button class="theory-toggle" id="g15TheoryToggle"><span class="toggle-icon">◀</span></button><div class="theory-content"><p class="theory-label">AUDIT TOOLS</p>
+      <label class="slider-label"><input type="checkbox" id="g15ToolContrast"> Contrast Checker</label>
+      <label class="slider-label"><input type="checkbox" id="g15ToolScreenReader"> Screen Reader View</label>
+      <label class="slider-label"><input type="checkbox" id="g15ToolFocus"> Focus Order</label>
+      <label class="slider-label"><input type="checkbox" id="g15ToolTouch"> Touch Targets</label>
+      <label class="slider-label"><input type="checkbox" id="g15ToolBlind"> Color Blindness</label>
+      <select class="hicks-input" id="g15IssueType" style="margin-top:10px;"><option>Insufficient contrast</option><option>Missing alt text</option><option>No label on input</option><option>Broken focus order</option><option>Touch target too small</option><option>Missing ARIA role</option><option>Seizure risk (animation)</option><option>Cognitive overload</option></select>
+      <input class="hicks-input" id="g15FixInput" placeholder="Fix detail (label, alt, etc.)" style="margin-top:8px;">
+      <button class="sim-submit-btn" id="g15Classify" style="width:100%;margin-top:8px;">CLASSIFY + FIX</button>
+      <button class="sim-submit-btn" id="g15Submit" style="width:100%;margin-top:8px;">SUBMIT AUDIT</button>
+    </div></aside>
+    <main class="arena-center"><div class="hicks-header-bar"><span class="hicks-scenario" id="g15Scenario">Audit the interface and fix all issues.</span><span class="hicks-target">ISSUES: <span id="g15IssueTarget">0</span></span></div><div class="audit-canvas" id="g15Canvas"></div></main>
+    <aside class="metrics-panel"><div class="metric-row"><span class="metric-label">FOUND</span><span class="metric-val" id="g15Found">0</span></div><div class="metric-row"><span class="metric-label">CORRECT</span><span class="metric-val" id="g15Correct">0</span></div><div class="metric-row"><span class="metric-label">WCAG</span><span class="metric-val" id="g15WCAG" style="font-size:16px;">A</span></div><div class="vera-commentary" id="g15VeraComment">—</div></aside>
+  </div>
+  <div class="debrief-overlay" id="g15Debrief" style="display:none;"><div class="debrief-inner"><div class="debrief-green" id="g15DebriefGood"></div><div class="debrief-red" id="g15DebriefMiss"></div><p class="debrief-principle">Accessible design is verified behavior, not intention.</p><button class="next-btn" id="g15Next">NEXT CHALLENGE →</button></div></div>
+  <div class="game-complete" id="g15Complete" style="display:none;"><div class="complete-score-wrap"><span class="complete-score" id="g15FinalScore">0</span><span class="complete-xp" id="g15XP">+0 XP</span></div><div class="principle-card"><p class="pc-game">G15 — Accessibility Auditor</p><p class="pc-principle">Inclusive Design</p><ul class="pc-rules"><li>Detect, classify, then fix</li><li>Keyboard and screen reader paths matter</li><li>44px targets reduce error</li></ul><p class="pc-score" id="g15PcScore">Score: 0</p><span class="pc-stamp">EARNED</span></div><button class="return-btn" id="g15Return">RETURN TO DASHBOARD</button></div>
+</section>
+
+<!-- ============================================================
+     G16 — AFFORDANCE FORGE
+     ============================================================ -->
+<section class="game-page" id="g16AffordanceForge" tabindex="-1">
+  <div class="brief-screen" id="g16Brief"><span class="game-number">G16</span><h1 class="brief-title">Affordance Forge</h1><p class="brief-def">Tune visual signals so interaction intent is unmistakable.</p><p class="brief-tap">TAP TO BEGIN</p></div>
+  <header class="challenge-header" id="g16Header" style="display:none;"><span class="game-label">Affordance Forge</span><span class="challenge-counter" id="g16Counter">CHALLENGE 01 / 10</span><div class="header-right"><span class="score-display" id="g16Score">0</span><div class="vera-orb" id="g16VeraOrb"></div></div></header>
+  <div class="challenge-arena" id="g16Arena" style="display:none;">
+    <aside class="theory-panel" id="g16Theory"><button class="theory-toggle" id="g16TheoryToggle"><span class="toggle-icon">◀</span></button><div class="theory-content"><p class="theory-label">SIGNALS</p>
+      <label class="slider-label">Depth<select class="hicks-input" id="g16Depth"><option value="none">None</option><option value="shadow">Shadow</option><option value="elevated">Elevated border</option></select></label>
+      <label class="slider-label">Cursor<select class="hicks-input" id="g16Cursor"><option value="default">Default</option><option value="pointer">Pointer</option><option value="text">Text</option><option value="grab">Grab</option></select></label>
+      <label class="slider-label">Color<select class="hicks-input" id="g16Color"><option value="neutral">Neutral</option><option value="accent">Accent</option></select></label>
+      <label class="slider-label">Motion<select class="hicks-input" id="g16Motion"><option value="none">None</option><option value="scale">Scale</option><option value="underline">Underline</option></select></label>
+      <label class="slider-label">Label<input class="hicks-input" id="g16Label" placeholder="Action label"></label>
+      <label class="slider-label">State<select class="hicks-input" id="g16State"><option value="none">None</option><option value="filled">Filled focus</option><option value="inset">Inset active</option></select></label>
+      <button class="sim-submit-btn" id="g16Submit" style="width:100%;margin-top:12px;">SUBMIT</button>
+    </div></aside>
+    <main class="arena-center"><div class="hicks-header-bar"><span class="hicks-scenario" id="g16Scenario">Basic affordances I</span><span class="hicks-target">SPLIT VIEW</span></div>
+      <div class="af-split" id="g16Split"><div class="af-col"><p class="af-label">BEFORE</p><div class="af-list" id="g16BeforeList"></div></div><div class="af-divider" id="g16Divider"></div><div class="af-col"><p class="af-label">AFTER</p><div class="af-list" id="g16AfterList"></div></div></div>
+    </main>
+    <aside class="metrics-panel"><div class="metric-row"><span class="metric-label">CLARITY</span><span class="metric-val" id="g16Clarity">0</span></div><div class="metric-row"><span class="metric-label">APPROPRIATE</span><span class="metric-val" id="g16Appropriate">0</span></div><div class="metric-row"><span class="metric-label">CONSISTENCY</span><span class="metric-val" id="g16Consistency">0</span></div><div class="metric-row"><span class="metric-label">SCORE</span><span class="metric-val" id="g16AffordanceScore">0</span></div><div class="vera-commentary" id="g16VeraComment">—</div></aside>
+  </div>
+  <div class="debrief-overlay" id="g16Debrief" style="display:none;"><div class="debrief-inner"><div class="debrief-green" id="g16DebriefGood"></div><div class="debrief-red" id="g16DebriefMiss"></div><p class="debrief-principle">Affordances make intent visible before interaction.</p><button class="next-btn" id="g16Next">NEXT CHALLENGE →</button></div></div>
+  <div class="game-complete" id="g16Complete" style="display:none;"><div class="complete-score-wrap"><span class="complete-score" id="g16FinalScore">0</span><span class="complete-xp" id="g16XP">+0 XP</span></div><div class="principle-card"><p class="pc-game">G16 — Affordance Forge</p><p class="pc-principle">Signifiers & Feedback</p><ul class="pc-rules"><li>Signals must be legible</li><li>Control language should be consistent</li><li>Action intent should be obvious</li></ul><p class="pc-score" id="g16PcScore">Score: 0</p><span class="pc-stamp">EARNED</span></div><button class="return-btn" id="g16Return">RETURN TO DASHBOARD</button></div>
+</section>
+
+<!-- ============================================================
+     G17 — MOTION LAW STUDIO
+     ============================================================ -->
+<section class="game-page" id="g17MotionLawStudio" tabindex="-1">
+  <div class="brief-screen" id="g17Brief"><span class="game-number">G17</span><h1 class="brief-title">Motion Law Studio</h1><p class="brief-def">Compose timing and easing that inform, orient, and engage.</p><p class="brief-tap">TAP TO BEGIN</p></div>
+  <header class="challenge-header" id="g17Header" style="display:none;"><span class="game-label">Motion Law Studio</span><span class="challenge-counter" id="g17Counter">CHALLENGE 01 / 10</span><div class="header-right"><span class="score-display" id="g17Score">0</span><div class="vera-orb" id="g17VeraOrb"></div></div></header>
+  <div class="challenge-arena" id="g17Arena" style="display:none;">
+    <aside class="theory-panel" id="g17Theory"><button class="theory-toggle" id="g17TheoryToggle"><span class="toggle-icon">◀</span></button><div class="theory-content"><p class="theory-label">MOTION CONTROLS</p>
+      <label class="slider-label">Preset<select class="hicks-input" id="g17Preset"><option value="linear">linear</option><option value="ease-in">ease-in</option><option value="ease-out">ease-out</option><option value="ease-in-out">ease-in-out</option><option value="spring">spring</option></select></label>
+      <label class="slider-label">c1x<input class="g-slider" id="g17Cx1" type="range" min="0" max="1" step="0.01"></label>
+      <label class="slider-label">c1y<input class="g-slider" id="g17Cy1" type="range" min="0" max="1.2" step="0.01"></label>
+      <label class="slider-label">c2x<input class="g-slider" id="g17Cx2" type="range" min="0" max="1" step="0.01"></label>
+      <label class="slider-label">c2y<input class="g-slider" id="g17Cy2" type="range" min="0" max="1.2" step="0.01"></label>
+      <div class="g17-curve-lane"><div class="g17-curve-ball" id="g17CurveBall"></div></div>
+      <button class="sim-submit-btn" id="g17Play" style="width:100%;margin-top:10px;">PLAY</button>
+      <button class="sim-submit-btn" id="g17Submit" style="width:100%;margin-top:8px;">SUBMIT</button>
+    </div></aside>
+    <main class="arena-center"><div class="hicks-header-bar"><span class="hicks-scenario" id="g17Scenario">Button hover I</span><span class="hicks-target" id="g17DurationHint">120-260ms</span></div><div class="g17-timeline" id="g17TimelineRows"></div><div class="g17-preview" id="g17Preview"></div></main>
+    <aside class="metrics-panel"><div class="metric-row"><span class="metric-label">INFORM</span><span class="metric-val" id="g17Inform">0%</span></div><div class="metric-row"><span class="metric-label">ORIENT</span><span class="metric-val" id="g17Orient">0%</span></div><div class="metric-row"><span class="metric-label">ENGAGE</span><span class="metric-val" id="g17Engage">0%</span></div><div class="metric-row"><span class="metric-label">DURATION</span><span class="metric-val" id="g17DurationVal">0ms</span></div><div class="metric-row"><span class="metric-label">EASING</span><span class="metric-val" id="g17EasingVal">0%</span></div><div class="vera-commentary" id="g17VeraComment">—</div></aside>
+  </div>
+  <div class="debrief-overlay" id="g17Debrief" style="display:none;"><div class="debrief-inner"><div class="debrief-green" id="g17DebriefGood"></div><div class="debrief-red" id="g17DebriefMiss"></div><p class="debrief-principle">Motion must communicate state, not decorate it.</p><button class="next-btn" id="g17Next">NEXT CHALLENGE →</button></div></div>
+  <div class="game-complete" id="g17Complete" style="display:none;"><div class="complete-score-wrap"><span class="complete-score" id="g17FinalScore">0</span><span class="complete-xp" id="g17XP">+0 XP</span></div><div class="principle-card"><p class="pc-game">G17 — Motion Law Studio</p><p class="pc-principle">Temporal Feedback</p><ul class="pc-rules"><li>Duration conveys urgency</li><li>Easing conveys physicality</li><li>Layer timing aids orientation</li></ul><p class="pc-score" id="g17PcScore">Score: 0</p><span class="pc-stamp">EARNED</span></div><button class="return-btn" id="g17Return">RETURN TO DASHBOARD</button></div>
+</section>
+
+<!-- ============================================================
+     G18 — FEEDBACK LOOP
+     ============================================================ -->
+<section class="game-page" id="g18FeedbackLoop" tabindex="-1">
+  <div class="brief-screen" id="g18Brief"><span class="game-number">G18</span><h1 class="brief-title">Feedback Loop</h1><p class="brief-def">Insert timely feedback at uncertainty points in task flows.</p><p class="brief-tap">TAP TO BEGIN</p></div>
+  <header class="challenge-header" id="g18Header" style="display:none;"><span class="game-label">Feedback Loop</span><span class="challenge-counter" id="g18Counter">CHALLENGE 01 / 10</span><div class="header-right"><span class="score-display" id="g18Score">0</span><div class="vera-orb" id="g18VeraOrb"></div></div></header>
+  <div class="challenge-arena" id="g18Arena" style="display:none;">
+    <aside class="theory-panel" id="g18Theory"><button class="theory-toggle" id="g18TheoryToggle"><span class="toggle-icon">◀</span></button><div class="theory-content"><p class="theory-label">FEEDBACK SLOT</p>
+      <label class="slider-label">What<select class="hicks-input" id="g18What"><option>Visual change</option><option>Sound cue</option><option>Haptic</option><option>Text message</option><option>Loading indicator</option><option>Success state</option><option>Error state</option><option>Progress update</option></select></label>
+      <label class="slider-label">Where<select class="hicks-input" id="g18Where"><option>Inline on element</option><option>Toast notification</option><option>Status bar</option><option>Modal</option></select></label>
+      <label class="slider-label">When<select class="hicks-input" id="g18When"><option>Immediate (0ms)</option><option>After 200ms</option><option>After 500ms</option></select></label>
+      <label class="slider-label">Duration<select class="hicks-input" id="g18Long"><option>Brief (1s)</option><option>Medium (2s)</option><option>Persistent (until dismissed)</option></select></label>
+      <button class="sim-submit-btn" id="g18Simulate" style="width:100%;margin-top:10px;">SIMULATE USER</button>
+      <button class="sim-submit-btn" id="g18Submit" style="width:100%;margin-top:8px;">SUBMIT</button>
+    </div></aside>
+    <main class="arena-center"><div class="hicks-header-bar"><span class="hicks-scenario" id="g18Scenario">3-step form I</span><span class="hicks-target">Flow Feedback Design</span></div><div class="g18-track" id="g18FlowTrack"></div></main>
+    <aside class="metrics-panel"><div class="metric-row"><span class="metric-label">DENSITY</span><span class="metric-val" id="g18Density">0%</span></div><div class="metric-row"><span class="metric-label">CONFUSION</span><span class="metric-val" id="g18Confusion">0%</span></div><div class="vera-commentary" id="g18VeraComment">—</div></aside>
+  </div>
+  <div class="debrief-overlay" id="g18Debrief" style="display:none;"><div class="debrief-inner"><div class="debrief-green" id="g18DebriefGood"></div><div class="debrief-red" id="g18DebriefMiss"></div><p class="debrief-principle">Silence creates uncertainty; feedback restores confidence.</p><button class="next-btn" id="g18Next">NEXT CHALLENGE →</button></div></div>
+  <div class="game-complete" id="g18Complete" style="display:none;"><div class="complete-score-wrap"><span class="complete-score" id="g18FinalScore">0</span><span class="complete-xp" id="g18XP">+0 XP</span></div><div class="principle-card"><p class="pc-game">G18 — Feedback Loop</p><p class="pc-principle">System Status Visibility</p><ul class="pc-rules"><li>Feedback must be immediate</li><li>Placement must be contextual</li><li>Density should avoid overload</li></ul><p class="pc-score" id="g18PcScore">Score: 0</p><span class="pc-stamp">EARNED</span></div><button class="return-btn" id="g18Return">RETURN TO DASHBOARD</button></div>
+</section>
+
+<!-- ============================================================
+     G19 — INFORMATION ARCHITECT
+     ============================================================ -->
+<section class="game-page" id="g19InformationArchitect" tabindex="-1">
+  <div class="brief-screen" id="g19Brief"><span class="game-number">G19</span><h1 class="brief-title">Information Architect</h1><p class="brief-def">Structure large content sets into discoverable navigation systems.</p><p class="brief-tap">TAP TO BEGIN</p></div>
+  <header class="challenge-header" id="g19Header" style="display:none;"><span class="game-label">Information Architect</span><span class="challenge-counter" id="g19Counter">CHALLENGE 01 / 10</span><div class="header-right"><span class="score-display" id="g19Score">0</span><div class="vera-orb" id="g19VeraOrb"></div></div></header>
+  <div class="challenge-arena" id="g19Arena" style="display:none;">
+    <aside class="theory-panel" id="g19Theory"><button class="theory-toggle" id="g19TheoryToggle"><span class="toggle-icon">◀</span></button><div class="theory-content"><p class="theory-label">PHASE ACTIONS</p>
+      <div id="g19P1"><input class="hicks-input" id="g19ClusterLabel" placeholder="Cluster label"><button class="sim-submit-btn" id="g19CreateCluster" style="width:100%;margin-top:8px;">CREATE CLUSTER</button><button class="sim-submit-btn" id="g19ToPhase2" style="width:100%;margin-top:8px;">TO PHASE 2</button></div>
+      <div id="g19P2" style="display:none;"><button class="sim-submit-btn" id="g19AddBucket" style="width:100%;">ADD BUCKET</button><button class="sim-submit-btn" id="g19ToPhase3" style="width:100%;margin-top:8px;">TO PHASE 3</button></div>
+      <div id="g19P3" style="display:none;"><button class="sim-submit-btn" id="g19RunTree" style="width:100%;">RUN TREE TASK</button><button class="sim-submit-btn" id="g19ToPhase4" style="width:100%;margin-top:8px;">TO PHASE 4</button></div>
+      <div id="g19P4" style="display:none;"><button class="sim-submit-btn" id="g19QuickRetest" style="width:100%;">QUICK RETEST</button><button class="sim-submit-btn" id="g19Submit" style="width:100%;margin-top:8px;">SUBMIT</button></div>
+      <label class="slider-label" style="margin-top:8px;">Pattern<select class="hicks-input" id="g19Pattern"></select></label>
+    </div></aside>
+    <main class="arena-center"><div class="hicks-header-bar"><span class="hicks-scenario" id="g19Scenario">E-commerce IA</span><span class="hicks-target">4-Phase IA Flow</span></div><div class="g19-layout"><div class="g19-col"><h4>Dump</h4><div class="g19-dump" id="g19Dump"></div></div><div class="g19-col"><h4>Clusters</h4><div class="g19-clusters" id="g19Clusters"></div><h4>Buckets</h4><div class="g19-buckets" id="g19Buckets"></div></div><div class="g19-col"><h4>Tree Test</h4><div class="g19-tree" id="g19Tree"></div><div id="g19QuickResult" class="g19-quick"></div><h4>Pattern Preview</h4><div class="g19-pattern-preview" id="g19PatternPreview"></div></div></div></main>
+    <aside class="metrics-panel"><div class="metric-row"><span class="metric-label">ASSIGNED</span><span class="metric-val" id="g19Assigned">0/0</span></div><div class="metric-row"><span class="metric-label">TREE RATE</span><span class="metric-val" id="g19TreeRate">0%</span></div><div class="metric-row"><span class="metric-label">MILLER</span><span class="metric-val" id="g19Miller">PASS</span></div><div class="metric-row"><span class="metric-label">LABEL QUALITY</span><span class="metric-val" id="g19Label">0%</span></div><div class="vera-commentary" id="g19VeraComment">—</div></aside>
+  </div>
+  <div class="debrief-overlay" id="g19Debrief" style="display:none;"><div class="debrief-inner"><div class="debrief-green" id="g19DebriefGood"></div><div class="debrief-red" id="g19DebriefMiss"></div><p class="debrief-principle">Good IA reduces search and preserves working memory.</p><button class="next-btn" id="g19Next">NEXT CHALLENGE →</button></div></div>
+  <div class="game-complete" id="g19Complete" style="display:none;"><div class="complete-score-wrap"><span class="complete-score" id="g19FinalScore">0</span><span class="complete-xp" id="g19XP">+0 XP</span></div><div class="principle-card"><p class="pc-game">G19 — Information Architect</p><p class="pc-principle">Findability Strategy</p><ul class="pc-rules"><li>Group by mental model</li><li>Cap category load</li><li>Validate with tree testing</li></ul><p class="pc-score" id="g19PcScore">Score: 0</p><span class="pc-stamp">EARNED</span></div><button class="return-btn" id="g19Return">RETURN TO DASHBOARD</button></div>
+</section>
+
+<!-- ============================================================
+     G20 — DARK PATTERN DETECTIVE
+     ============================================================ -->
+<section class="game-page" id="g20DarkPatternDetective" tabindex="-1">
+  <div class="brief-screen" id="g20Brief"><span class="game-number">G20</span><h1 class="brief-title">Dark Pattern Detective</h1><p class="brief-def">Identify manipulative patterns and redesign ethically.</p><p class="brief-tap">TAP TO BEGIN</p></div>
+  <header class="challenge-header" id="g20Header" style="display:none;"><span class="game-label">Dark Pattern Detective</span><span class="challenge-counter" id="g20Counter">CASE 01 / 15</span><div class="header-right"><span class="score-display" id="g20Score">0</span><div class="vera-orb" id="g20VeraOrb"></div></div></header>
+  <div class="challenge-arena" id="g20Arena" style="display:none;">
+    <aside class="theory-panel" id="g20Theory"><button class="theory-toggle" id="g20TheoryToggle"><span class="toggle-icon">◀</span></button><div class="theory-content"><p class="theory-label">EVIDENCE</p>
+      <label class="slider-label">Pattern Type<select class="hicks-input" id="g20PatternType"></select></label>
+      <textarea class="hicks-input" id="g20EvidenceNote" placeholder="Why is this manipulative?" style="min-height:92px;margin-top:8px;"></textarea>
+      <button class="sim-submit-btn" id="g20Classify" style="width:100%;margin-top:8px;">CLASSIFY</button>
+      <button class="sim-submit-btn" id="g20ToRedesign" style="width:100%;margin-top:8px;">TO REDESIGN</button>
+      <button class="sim-submit-btn" id="g20Submit" style="width:100%;margin-top:8px;">SUBMIT CASE</button>
+    </div></aside>
+    <main class="arena-center"><div class="hicks-header-bar"><span class="hicks-scenario" id="g20Scenario">Intro case</span><span class="hicks-target">TARGET: <span id="g20Target">0</span></span></div><div class="g20-canvas" id="g20Canvas"></div><div class="g20-evidence" id="g20EvidenceBoard"></div><div class="g20-redesign" id="g20Redesign"></div></main>
+    <aside class="metrics-panel"><div class="metric-row"><span class="metric-label">FOUND</span><span class="metric-val" id="g20Found">0</span></div><div class="metric-row"><span class="metric-label">DENSITY</span><span class="metric-val" id="g20Density">0%</span></div><div class="vera-commentary" id="g20VeraComment">—</div></aside>
+  </div>
+  <div class="debrief-overlay" id="g20Debrief" style="display:none;"><div class="debrief-inner"><div class="debrief-green" id="g20DebriefGood"></div><div class="debrief-red" id="g20DebriefMiss"></div><p class="debrief-principle">Ethical UX is clarity without coercion.</p><button class="next-btn" id="g20Next">NEXT CASE →</button></div></div>
+  <div class="game-complete" id="g20Complete" style="display:none;"><div class="complete-score-wrap"><span class="complete-score" id="g20FinalScore">0</span><span class="complete-xp" id="g20XP">+0 XP</span></div><div class="principle-card"><p class="pc-game">G20 — Dark Pattern Detective</p><p class="pc-principle">Ethical Product Design</p><ul class="pc-rules"><li>Spot coercion and ambiguity</li><li>Classify with evidence</li><li>Redesign for transparent consent</li></ul><p class="pc-score" id="g20PcScore">Score: 0</p><span class="pc-stamp">EARNED</span></div><button class="return-btn" id="g20Return">RETURN TO DASHBOARD</button></div>
+</section>
+
+<script src="js/systems/GlobalUX.js"></script>
+<script src="js/systems/DataManager.js"></script>
+<script src="js/systems/vera_celebrations.js"></script>
+<script src="js/systems/VERASystem.js"></script>
+<script src="js/systems/ScoringSystem.js" type="module"></script>
+<script src="js/systems/ProgressTracker.js" type="module"></script>
+<script src="js/games/G1ProximityField.js"></script>
+<script src="js/games/G2SimilarityMatch.js"></script>
+<script src="js/games/G3ClosureChamber.js"></script>
+<script src="js/games/G4FigureGround.js"></script>
+<script src="js/games/G5ContinuityRiver.js"></script>
+<script src="js/games/G6LoadReducer.js"></script>
+<script src="js/games/G7MentalModel.js"></script>
+<script src="js/games/G8HicksLaw.js"></script>
+<script src="js/games/G9FittsLaw.js"></script>
+<script src="js/games/G10MillersVault.js"></script>
+<script src="js/games/G11TypeHierarchy.js"></script>
+<script src="js/games/G12RhythmBaseline.js"></script>
+<script src="js/games/G13ContrastCalibration.js"></script>
+<script src="js/games/G14PaletteArchitect.js"></script>
+<script src="js/games/G15AccessibilityAuditor.js"></script>
+<script src="js/games/G16AffordanceForge.js"></script>
+<script src="js/games/G17MotionLawStudio.js"></script>
+<script src="js/games/G18FeedbackLoop.js"></script>
+<script src="js/games/G19InformationArchitect.js"></script>
+<script src="js/games/G20DarkPatternDetective.js"></script>
+<script src="js/games/GameRouter.js"></script>
+</body>
+</html>

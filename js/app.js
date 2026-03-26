@@ -1,10 +1,13 @@
 // GestALT Application - Main Controller
+// NAVIGATION RULE: always use navigateTo(pageId) - never history.back() or location.reload()
+// VERA RULE: global VERA hidden inside game pages, each game has its own scoped VERA instance
 import { PerceptionEngine } from './engine/PerceptionEngine.js';
 import { LearningSystem } from './systems/LearningSystem.js';
 import { ScoringSystem } from './systems/ScoringSystem.js';
 import { ProgressTracker } from './systems/ProgressTracker.js';
 import { OnboardingData } from './data/OnboardingData.js';
 import { ChallengeData } from './data/ChallengeData.js';
+import './systems/DataManager.js';
 
 class GestALTApp {
     constructor() {
@@ -768,26 +771,137 @@ class GestALTApp {
     // ============================================
     
     setupDashboard() {
-        this.updateDashboard();
+        this.initDashboard();
+    }
+
+    initDashboard() {
+        const progress = JSON.parse(localStorage.getItem('gestalt_progress') || '{}');
+        const quizResults = JSON.parse(localStorage.getItem('gestalt_quiz_results') || '{}');
+        const allScores = {
+            ...JSON.parse(localStorage.getItem('gestalt_game_scores') || '{}'),
+            ...JSON.parse(localStorage.getItem('cognitive_game_scores') || '{}'),
+            ...JSON.parse(localStorage.getItem('typography_game_scores') || '{}'),
+            ...JSON.parse(localStorage.getItem('color_game_scores') || '{}'),
+            ...JSON.parse(localStorage.getItem('interaction_game_scores') || '{}'),
+            ...JSON.parse(localStorage.getItem('strategy_game_scores') || '{}'),
+        };
+
+        const completedGames = Array.isArray(progress.completedGames) ? progress.completedGames : [];
+        const skillLevels = {
+            ...(quizResults.skillLevels || {}),
+            ...(progress.skillLevels || {})
+        };
+
+        this.userData.totalXP = Number(progress.totalXP || 0);
+        this.userData.currentStreak = Number(progress.streak || 0);
+        this.userData.completedLessons = completedGames;
+        this.userData.stats = {
+            hierarchy: Number(skillLevels.gestalt || 0),
+            accessibility: Number(skillLevels.color || 0),
+            decisionSpeed: Number(skillLevels.interaction || 0),
+            cognitiveLoad: Number(skillLevels.cognitive || 0)
+        };
+
+        const animateCounter = (id, target) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+
+            el.textContent = '0';
+            const start = performance.now();
+            const duration = 700;
+
+            const step = (now) => {
+                const t = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - t, 3);
+                el.textContent = String(Math.round(target * eased));
+                if (t < 1) requestAnimationFrame(step);
+            };
+
+            requestAnimationFrame(step);
+        };
+
+        const animateBar = (barId, labelId, target) => {
+            const barEl = document.getElementById(barId);
+            const labelEl = document.getElementById(labelId);
+            if (barEl) barEl.style.width = '0%';
+            if (labelEl) labelEl.textContent = '0%';
+
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    if (barEl) barEl.style.width = `${target}%`;
+                    if (labelEl) labelEl.textContent = `${target}%`;
+                });
+            });
+        };
+
+        animateCounter('totalXP', this.userData.totalXP);
+        animateCounter('lessonsCompleted', this.userData.completedLessons.length);
+        animateCounter('currentStreak', this.userData.currentStreak);
+
+        animateBar('hierarchyProgress', 'hierarchyPercent', this.userData.stats.hierarchy);
+        animateBar('accessibilityProgress', 'accessibilityPercent', this.userData.stats.accessibility);
+        animateBar('decisionSpeedProgress', 'decisionSpeedPercent', this.userData.stats.decisionSpeed);
+        animateBar('cognitiveProgress', 'cognitivePercent', this.userData.stats.cognitiveLoad);
+
+        const sidebarXPBar = document.getElementById('sidebarXPBar') || document.getElementById('dashboardXPBar');
+        const sidebarXPLabel = document.getElementById('sidebarXPLabel') || document.getElementById('dashboardXPLabel');
+        const sidebarLevel = document.getElementById('sidebarLevelDisplay') || document.getElementById('dashboardLevelDisplay');
+        const level = Number(progress.level || 1);
+        const xpInLevel = this.userData.totalXP % 1000;
+        const xpPercent = Math.max(0, Math.min(100, Math.round((xpInLevel / 1000) * 100)));
+
+        if (sidebarXPBar) {
+            sidebarXPBar.style.width = '0%';
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    sidebarXPBar.style.width = `${xpPercent}%`;
+                });
+            });
+        }
+        if (sidebarXPLabel) sidebarXPLabel.textContent = `LV.${String(level).padStart(2, '0')} -> LV.${String(level + 1).padStart(2, '0')}`;
+        if (sidebarLevel) sidebarLevel.textContent = `LV.${String(level).padStart(2, '0')}`;
+
+        const allGamesGrid = document.getElementById('allGamesGrid') || document.getElementById('gamesGrid');
+        if (allGamesGrid) {
+            const scoreMap = allScores || {};
+            allGamesGrid.querySelectorAll('[data-game-id]').forEach((tile) => {
+                const gameId = tile.getAttribute('data-game-id');
+                if (!gameId) return;
+
+                const gameNum = parseInt(gameId.replace('G', ''), 10);
+                const previousId = gameNum > 1 ? `G${String(gameNum - 1).padStart(2, '0')}` : null;
+                const completed = completedGames.includes(gameId);
+                const available = completed || !previousId || completedGames.includes(previousId);
+
+                tile.classList.remove('completed', 'available', 'locked');
+                tile.classList.add(completed ? 'completed' : available ? 'available' : 'locked');
+
+                const scoreEl = tile.querySelector('[data-game-score]');
+                if (scoreEl) {
+                    const s = scoreMap[gameId];
+                    scoreEl.textContent = typeof s === 'number' ? `${Math.round(s)}%` : '';
+                }
+            });
+        }
+
+        const activeGames = document.getElementById('activeGames') || document.getElementById('activeGamesList');
+        if (activeGames) {
+            activeGames.querySelectorAll('[data-game-id]').forEach((card) => {
+                const gameId = card.getAttribute('data-game-id');
+                if (!gameId) return;
+                const resumeBtn = card.querySelector('[data-resume-btn]');
+                if (!resumeBtn) return;
+                resumeBtn.disabled = false;
+            });
+        }
+
+        this.loadLessons();
+        this.loadRecommendations();
+        this.loadInsights();
     }
 
     updateDashboard() {
-        // Update stats
-        document.getElementById('totalXP').textContent = this.userData.totalXP;
-        document.getElementById('lessonsCompleted').textContent = this.userData.completedLessons.length;
-        document.getElementById('currentStreak').textContent = this.userData.currentStreak;
-        
-        // Update progress bars
-        this.updateProgressBars();
-        
-        // Load lessons
-        this.loadLessons();
-        
-        // Load recommendations
-        this.loadRecommendations();
-        
-        // Load insights
-        this.loadInsights();
+        this.initDashboard();
     }
 
     updateProgressBars() {
@@ -900,6 +1014,11 @@ class GestALTApp {
             this.userData.stats.decisionSpeed = Math.min(100, this.userData.stats.decisionSpeed + 4);
             this.userData.stats.cognitiveLoad = Math.min(100, this.userData.stats.cognitiveLoad + 4);
         }
+
+        if (window.gestaltDataManager) {
+            window.gestaltDataManager.markPlayActivity();
+            window.gestaltDataManager.syncProgressFromScores();
+        }
     }
 
     // ============================================
@@ -907,16 +1026,49 @@ class GestALTApp {
     // ============================================
     
     navigateTo(pageId) {
+        const targetPage = document.getElementById(pageId);
+        if (!targetPage) return;
+
+        const veraRobot = document.querySelector('.vera-robot');
+        const gamePageIds = [
+            'gameG01','gameG02','gameG03','gameG04','gameG05',
+            'gameG06','gameG07','gameG08','gameG09','gameG10',
+            'gameG11','gameG12','gameG13','gameG14','gameG15',
+            'gameG16','gameG17','gameG18','gameG19','gameG20'
+        ];
+        if (veraRobot) {
+            if (gamePageIds.includes(pageId)) {
+                veraRobot.style.display = 'none';
+            } else {
+                veraRobot.style.display = 'block';
+            }
+        }
+
+        if (typeof window.navigateTo === 'function') {
+            window.navigateTo(pageId);
+            this.currentPage = pageId;
+
+            if (pageId === 'dashboardPage') {
+                setTimeout(() => {
+                    this.initDashboard();
+                }, 450);
+            }
+            return;
+        }
+
         // Hide all pages
         document.querySelectorAll('.page').forEach(page => {
             page.classList.remove('active');
         });
         
         // Show target page
-        const targetPage = document.getElementById(pageId);
-        if (targetPage) {
-            targetPage.classList.add('active');
-            this.currentPage = pageId;
+        targetPage.classList.add('active');
+        this.currentPage = pageId;
+
+        if (pageId === 'dashboardPage') {
+            setTimeout(() => {
+                this.initDashboard();
+            }, 450);
         }
     }
 }
