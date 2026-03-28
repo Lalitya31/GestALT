@@ -27,10 +27,10 @@ export default function Architecture() {
     >
       <header className="text-center mb-20 relative">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-primary/20 blur-[130px] rounded-full pointer-events-none -z-10" />
-        <h1 className="text-5xl md:text-7xl font-black tracking-tight drop-shadow-lg text-white mb-4">
+        <h1 className="text-5xl md:text-7xl font-black tracking-tight drop-shadow-lg text-white mb-4" style={{ wordWrap: 'break-word', overflowWrap: 'break-word', maxWidth: '100%' }}>
           System <span className="text-gradient">Architecture</span>
         </h1>
-        <p className="text-xl md:text-2xl text-white/60 font-medium">
+        <p className="text-xl md:text-2xl text-white/60 font-medium" style={{ wordWrap: 'break-word', overflowWrap: 'break-word', maxWidth: '100%' }}>
           Under the Hood of GestALT's Perception Simulation
         </p>
       </header>

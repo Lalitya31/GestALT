@@ -6,7 +6,30 @@
     <title>GestALT platform</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/fraunces/v33/6NUj8-4zIyIgWQc0jy0e.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHAPMtVVLW-V4t8Z-_8qw.woff2" as="font" type="font/woff2" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    <style>
+      /* Prevent text layout shift during font load */
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: inherit;
+        line-height: 1.2;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      }
+      p, span, a, button, div {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+      /* Ensure fonts load smoothly */
+      * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>>
     <style>
       .hero,
       .hero-landing,

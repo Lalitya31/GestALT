@@ -286,6 +286,9 @@ export default function ZIndexLayering() {
           overflowY: 'auto',
           zIndex: 10,
           position: 'relative',
+          boxSizing: 'border-box',
+          wordWrap: 'break-word',
+          overflowWrap: 'break-word',
         }}
       >
         <button
@@ -329,6 +332,9 @@ export default function ZIndexLayering() {
             lineHeight: '1.1',
             color: '#E8EBFF',
             marginBottom: '10px',
+            wordWrap: 'break-word',
+            overflowWrap: 'break-word',
+            maxWidth: '100%',
           }}
         >
           {challenge.title}
@@ -342,6 +348,9 @@ export default function ZIndexLayering() {
             lineHeight: 1.5,
             color: '#9FA8D8',
             marginBottom: '20px',
+            wordWrap: 'break-word',
+            overflowWrap: 'break-word',
+            maxWidth: '100%',
           }}
         >
           {challenge.description}
@@ -377,6 +386,9 @@ export default function ZIndexLayering() {
               lineHeight: 1.5,
               padding: '10px 12px',
               marginBottom: '16px',
+              wordWrap: 'break-word',
+              overflowWrap: 'break-word',
+              maxWidth: '100%',
             }}
           >
             Correct order (bottom to top): {hintOrder}

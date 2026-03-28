@@ -45,8 +45,27 @@
   * {
     @apply border-border;
   }
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/30 min-h-screen relative overflow-x-hidden;
+    font-feature-settings: "kern", "liga", "calt";
+    line-height: 1.5;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+  p, span, a, button {
+    -webkit-font-smoothing: antialiased;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   
   body::before {
