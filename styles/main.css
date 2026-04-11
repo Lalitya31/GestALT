@@ -318,6 +318,127 @@ code, .metric-value, .score, .timer {
     font-family: var(--font-heading);
     font-size: 1.4rem;
     margin-bottom: var(--space-sm);
+
+}
+
+h1,
+.brief-title,
+.product-name {
+    font-size: clamp(48px, 6vw, 96px);
+}
+
+body,
+p,
+.hero-description,
+.supporting-line {
+    font-size: clamp(14px, 1.2vw, 18px);
+}
+
+code,
+.metric-value,
+.score,
+.timer,
+.challenge-counter,
+.pc-game {
+    font-size: clamp(11px, 1vw, 14px);
+}
+
+.skip-link {
+    position: fixed;
+    top: -48px;
+    left: 16px;
+    z-index: 2000;
+    background: #6366F1;
+    color: #fff;
+    padding: 10px 14px;
+    text-decoration: none;
+    font-family: var(--font-mono);
+}
+
+.skip-link:focus-visible {
+    top: 12px;
+}
+
+#globalPageTransition {
+    position: fixed;
+    inset: 0;
+    background: #6366F1;
+    z-index: 1800;
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 300ms ease;
+    pointer-events: none;
+}
+
+#globalPageTransition.active {
+    clip-path: inset(0 0 0 0);
+}
+
+.page-transition-out { animation: pageOutWipe 300ms ease forwards; }
+.page-transition-in { animation: pageInReveal 300ms ease forwards; }
+
+@keyframes pageOutWipe {
+    from { clip-path: inset(0 0 0 0); }
+    to { clip-path: inset(0 100% 0 0); }
+}
+
+@keyframes pageInReveal {
+    from { clip-path: inset(100% 0 0 0); }
+    to { clip-path: inset(0 0 0 0); }
+}
+
+.cursor-dot,
+.cursor-ring {
+    position: fixed;
+    pointer-events: none;
+    z-index: 2100;
+    transform: translate(-50%, -50%);
+}
+
+.cursor-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #6366F1;
+    transition: left 50ms linear, top 50ms linear, transform 140ms ease;
+}
+
+.cursor-ring {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #6366F1;
+    border-radius: 50%;
+    transition: left 150ms linear, top 150ms linear, transform 160ms ease, background 160ms ease;
+}
+
+.cursor-ring.cursor-ring-active {
+    transform: translate(-50%, -50%) scale(2);
+    background: rgba(99, 102, 241, 0.2);
+}
+
+.cursor-dot.cursor-click,
+.cursor-ring.cursor-click {
+    transform: translate(-50%, -50%) scale(0.05);
+}
+
+*:focus-visible {
+    outline: 2px solid #6366F1;
+    outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+    .cursor-dot,
+    .cursor-ring {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 .challenge-description {

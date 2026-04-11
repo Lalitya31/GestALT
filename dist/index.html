@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GestALT platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/fraunces/v33/6NUj8-4zIyIgWQc0jy0e.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHAPMtVVLW-V4t8Z-_8qw.woff2" as="font" type="font/woff2" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    <style>
+      /* Prevent text layout shift during font load */
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: inherit;
+        line-height: 1.2;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      }
+      p, span, a, button, div {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+      /* Ensure fonts load smoothly */
+      * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>>
+    <style>
+      .hero,
+      .hero-landing,
+      [data-hero] {
+        filter: url(#grain);
+        position: relative;
+      }
+
+      .hero::after,
+      .hero-landing::after,
+      [data-hero]::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(circle at 35% 25%, rgba(255,255,255,0.09), rgba(0,0,0,0.05));
+        opacity: 0.03;
+      }
+
+      body {
+        overflow-x: hidden;
+      }
+
+      .skip-link {
+        position: fixed;
+        top: -48px;
+        left: 16px;
+        z-index: 2000;
+        background: #6366F1;
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 14px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+      }
+
+      .skip-link:focus-visible {
+        top: 12px;
+      }
+
+      *:focus-visible {
+        outline: 2px solid #6366F1;
+        outline-offset: 2px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-BYa1jzLR.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-09aoXZtg.css">
+  </head>
+  <body class="dark font-sans antialiased bg-[#080808]">
+    <a class="skip-link" href="#root">Skip to content</a>
+    <!-- Film Grain SVG Filter Definition -->
+    <svg style="display:none;">
+      <defs>
+        <filter id="grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+          <feColorMatrix type="saturate" values="0"/>
+        </filter>
+      </defs>
+    </svg>
+
+    <script src="js/systems/GlobalUX.js"></script>
+    <script src="js/systems/DataManager.js"></script>
+    <div id="root"></div>
+  </body>
+</html>

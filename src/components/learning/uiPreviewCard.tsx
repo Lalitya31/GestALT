@@ -13,8 +13,6 @@ interface UIPreviewCardProps {
 }
 
 export const UIPreviewCard: React.FC<UIPreviewCardProps> = ({
-  id,
-  isFlawed,
   isSelected,
   isCorrect,
   showResult,

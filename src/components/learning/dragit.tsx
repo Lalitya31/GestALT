@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useDraggable, useDroppable, DndContext, DragEndEvent } from '@dnd-kit/core';
+import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { cn } from '@/lib/utils';
 
 interface DraggableElementProps {
@@ -57,8 +57,6 @@ export const DroppableZone: React.FC<DroppableZoneProps> = ({
   children,
   className,
   acceptedIds = [],
-  onValidDrop,
-  onInvalidDrop,
 }) => {
   const { isOver, setNodeRef, active } = useDroppable({
     id,
